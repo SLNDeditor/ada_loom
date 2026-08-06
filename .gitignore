@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Alias / fichiers parasites macOS
+ada_loom alias
+*.alias
+
+# Fontes : on ne publie que celle utilisée par le site (Deimos)
+# (les autres restent en local ; évite de redistribuer Helvetica/Futura, etc.)
+font/*
+!font/Deimos-ExtraBold-Pro.otf

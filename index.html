@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ada_loom — Laurent Marissal</title>
+<meta name="description" content="Studio ada_loom, Laurent Marissal. Trente ans de design graphique et éditorial, aujourd'hui product building no-code propulsé par l'IA. Portfolio en ligne.">
+<meta property="og:title" content="ada_loom — Laurent Marissal">
+<meta property="og:description" content="design du travail · travail du design. Product building no-code & IA, design graphique & éditorial.">
+<meta property="og:image" content="cover.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  /* Pastille a_ : SVG fourni (Group_188), affichée à 60px dans le header. */
+
+  @font-face{
+    font-family:"Deimos";
+    src:url("font/Deimos-ExtraBold-Pro.otf") format("opentype");
+    font-weight:400 900;font-style:normal;font-display:swap;
+    /* Deimos est une police de titrage : on exclut les glyphes qu'il n'a pas
+       (tirets — –, puce • ●, ‹ ›, flèches ↑↓→↗, ✕) → repli auto sur JetBrains Mono */
+    unicode-range:U+0-2012,U+2015-2021,U+2023-2038,U+203B-218F,U+2200-25CE,U+25D0-2714,U+2716-10FFFF;
+  }
+
+  :root{
+    --violet:#1a1244;
+    --violet-deep:#120c33;
+    --magenta:#ec008c;
+    --jaune:#ffec00;
+    --paper:#f4f2ec;
+    --ink:#171226;
+    --grey:#8a86a0;
+    --line:rgba(244,242,236,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--violet);color:var(--paper);
+    font-family:"Deimos","JetBrains Mono",monospace;
+    font-size:20px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ---- header ---- */
+  .top{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px clamp(20px,5vw,64px);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:50;
+    background:rgba(18,12,51,.82);backdrop-filter:blur(10px);
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .pastille{width:60px;height:auto;flex:0 0 auto;display:block}
+  .pastille svg{display:block;width:100%;height:auto}
+  .brand .name{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:23px;letter-spacing:.02em}
+  .brand .name b{color:var(--magenta)}
+  .brand .name small{display:block;font-family:"Deimos","JetBrains Mono",monospace;color:var(--grey);font-weight:800;font-size:17px;letter-spacing:.02em}
+  .top nav a{color:var(--grey);font-size:18px;transition:color .2s}
+  .top nav a:hover{color:var(--jaune)}
+
+  /* ---- bloc intro + book (fusionnés) ---- */
+  .book{
+    padding:clamp(48px,9vh,100px) clamp(20px,5vw,64px);
+    display:grid;grid-template-columns:1.05fr .95fr;
+    grid-template-areas:"head ." "txt cover";
+    column-gap:clamp(36px,6vw,80px);row-gap:0;
+    align-items:start;background:var(--violet-deep);
+  }
+  .book .head{grid-area:head}
+  .book .txt{grid-area:txt}
+  .book .cover-wrap{grid-area:cover}
+  .book .eyebrow-top{font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-bottom:10px}
+  .book .eyebrow{font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:20px}
+  .book .txt .lead{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(20px,4vw,25px);line-height:1.22;letter-spacing:-.01em;color:var(--jaune);max-width:30ch;margin-bottom:22px}
+  .book .txt .lead em{font-style:italic;color:var(--jaune)}
+  .book .txt .sub{color:#cbc8db;font-size:clamp(17px,1.5vw,19px);line-height:1.7;max-width:52ch;margin-bottom:18px}
+  .book .txt .desc{color:#cbc8db;font-size:18px;max-width:46ch;margin-bottom:14px}
+  .book .txt .desc .wt{color:rgba(255,255,255,.8)}
+  .book .txt .meta{font-size:18px;color:var(--grey);margin:22px 0 30px}
+  .book .btn{
+    display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+    padding:15px 26px;font-family:inherit;font-weight:500;font-size:19px;color:var(--paper);
+    background:var(--magenta);border:1px solid var(--magenta);border-radius:2px;
+    transition:transform .15s,background .2s,color .2s;
+  }
+  .book .btn:hover{background:var(--jaune);border-color:var(--jaune);color:var(--ink);transform:translateY(-2px)}
+  /* boutons ronds : actions (portfolio · prototype · CV) — classe .act pour ne pas heurter .pastille du logo */
+  .actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
+  .act{
+    display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+    width:85px;height:85px;border-radius:50%;text-align:center;cursor:pointer;
+    background:transparent;color:var(--paper);border:1px solid rgba(244,242,236,.35);
+    font-family:inherit;font-weight:500;font-size:14px;line-height:1.2;letter-spacing:.01em;
+    padding:0 8px;gap:4px;transition:transform .15s,background .2s,color .2s,border-color .2s;
+  }
+  .act:hover{transform:translateY(-3px)}
+  .act .ico{font-size:21px;line-height:1}
+  .act--dl{background:var(--magenta);color:var(--paper);border-color:var(--magenta)}
+  .act--dl:hover{background:var(--jaune);color:var(--ink);border-color:var(--jaune)}
+  .act--ghost:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .cover-wrap{position:relative;justify-self:center;width:100%;max-width:560px;cursor:pointer;margin-top:0}
+  .cover-wrap img{width:100%;display:block;border-radius:3px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .cover-wrap:hover img{transform:translateY(-6px) rotate(-.5deg)}
+  .cover-wrap .badge{position:absolute;top:-14px;left:-14px;background:var(--jaune);color:var(--ink);font-size:17px;font-weight:700;padding:8px 13px;border-radius:2px;transform:rotate(-4deg)}
+  .cover-wrap .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity .2s}
+  .cover-wrap .play span{background:rgba(18,12,51,.85);color:#fff;border:1px solid rgba(255,255,255,.7);padding:12px 22px;border-radius:2px;font-size:18px;letter-spacing:.04em;transition:background .2s,border-color .2s}
+  .cover-wrap:hover .play span{background:var(--magenta);border-color:var(--magenta)}
+
+  /* ---- footer / contact ---- */
+  .contact{
+    padding:clamp(52px,9vh,104px) clamp(20px,5vw,64px);
+    border-top:1px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  }
+  .contact .big{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-.01em}
+  .contact .big em{font-style:normal;color:var(--magenta)}
+  .contact .info{font-size:19px;line-height:2}
+  .contact .info a:hover{color:var(--jaune)}
+  .contact .info .k{color:var(--grey);display:block;margin-top:16px;font-size:17px;letter-spacing:.06em;text-transform:uppercase}
+  .dispo{display:inline-block;margin-top:6px;color:var(--jaune);font-size:18px}
+  .dispo::before{content:"● ";font-size:15px;vertical-align:middle}
+  footer{padding:26px clamp(20px,5vw,64px);border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:17px;color:var(--grey)}
+
+  /* ---- lightbox / carousel interne ---- */
+  .lb{position:fixed;inset:0;z-index:100;display:none;background:rgba(10,7,26,.94);backdrop-filter:blur(6px);flex-direction:column}
+  .lb.open{display:flex}
+  .lb-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px clamp(16px,4vw,40px);color:var(--paper);flex:0 0 auto}
+  .lb-bar .count{font-size:18px;color:var(--grey);letter-spacing:.04em}
+  .lb-bar .count b{color:var(--paper)}
+  .lb-close{background:none;border:1px solid var(--line);color:var(--paper);cursor:pointer;font-family:inherit;font-size:18px;padding:9px 16px;border-radius:2px;transition:background .2s,color .2s}
+  .lb-close:hover{background:var(--paper);color:var(--ink)}
+  .lb-stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;position:relative;padding:0 clamp(8px,4vw,64px);min-height:0}
+  .lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:2px;box-shadow:0 20px 60px -20px rgba(0,0,0,.7)}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;cursor:pointer;background:rgba(244,242,236,.1);border:1px solid var(--line);color:var(--paper);font-size:27px;display:flex;align-items:center;justify-content:center;transition:background .2s;user-select:none}
+  .lb-nav:hover{background:var(--magenta);border-color:var(--magenta)}
+  .lb-prev{left:clamp(8px,3vw,28px)}
+  .lb-next{right:clamp(8px,3vw,28px)}
+  .lb-foot{flex:0 0 auto;padding:12px clamp(16px,4vw,40px) 20px;display:flex;gap:8px;overflow-x:auto;justify-content:center}
+  .lb-foot img{height:52px;width:auto;border-radius:2px;opacity:.4;cursor:pointer;transition:opacity .2s;border:1px solid transparent;flex:0 0 auto}
+  .lb-foot img.active,.lb-foot img:hover{opacity:1;border-color:var(--jaune)}
+  .lb-dl{color:var(--grey);font-size:17px}
+  .lb-dl a:hover{color:var(--jaune)}
+
+  /* ---- modal prototype : maquette smartphone ---- */
+  .proto{position:fixed;inset:0;z-index:100;display:none;background:rgba(10,7,26,.94);backdrop-filter:blur(6px);flex-direction:column}
+  .proto.open{display:flex}
+  .proto-bar{display:flex;align-items:center;gap:14px;padding:14px clamp(16px,4vw,40px);color:var(--paper);flex:0 0 auto}
+  .proto-title{font-size:18px;color:var(--grey);letter-spacing:.04em}
+  .proto-dl{color:var(--grey);font-size:17px;margin-left:auto}
+  .proto-dl a:hover{color:var(--jaune)}
+  .proto-close{background:none;border:1px solid var(--line);color:var(--paper);cursor:pointer;font-family:inherit;font-size:18px;padding:9px 16px;border-radius:2px;transition:background .2s,color .2s}
+  .proto-close:hover{background:var(--paper);color:var(--ink)}
+  .proto-stage{flex:1 1 auto;display:flex;align-items:center;justify-content:center;padding:8px 12px 16px;min-height:0;overflow:hidden}
+  .phone-scaler{flex:0 0 auto;transform-origin:center center}
+  /* cadre fixe : l'iframe rend au gabarit réel d'un smartphone (390×844), puis on met à l'échelle le tout */
+  .phone{position:relative;width:418px;height:872px;background:#0a0a0a;border-radius:52px;padding:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.75)}
+  .phone-notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:150px;height:26px;background:#0a0a0a;border-radius:0 0 16px 16px;z-index:2}
+  .phone-screen{position:relative;width:390px;height:844px;border-radius:40px;overflow:hidden;background:#fff}
+  /* iframe volontairement plus large que l'écran : le bord droit (scrollbar/liseré) est clippé */
+  .phone-screen iframe{position:absolute;top:0;left:0;width:calc(100% + 17px);height:100%;border:0;display:block}
+
+  @media(max-width:760px){
+    .book{grid-template-columns:1fr;grid-template-areas:"head" "cover" "txt";column-gap:0;row-gap:28px}
+    .cover-wrap{max-width:440px;margin-top:0}
+    .contact{grid-template-columns:1fr;gap:26px}
+    .brand .name{display:none}
+    .lb-foot{display:none}
+    .lb-nav{width:44px;height:44px;font-size:23px}
+  }
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}.cover-wrap:hover img{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="pastille" aria-label="ada_loom">
+      <svg viewBox="0 0 106 119" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+        <circle cx="53" cy="66" r="53" fill="#EC008C"/>
+        <path d="M40.6978 66.2345V61.1785V60.7305L40.6338 60.2825L40.5698 59.8985L40.4418 59.4505L40.3138 59.0665L40.1218 58.7465L39.9298 58.3625L39.7378 58.0425L39.4818 57.7225L39.2258 57.4025L38.9698 57.0825L38.6498 56.8265L38.3298 56.6345L38.0098 56.3785L37.6258 56.1865L37.2418 56.0585L36.8578 55.8665L36.4738 55.8025L36.0258 55.6745H35.6418L35.1938 55.6105L34.7458 55.6745H34.3618L33.9138 55.8025L33.5298 55.8665L33.1458 56.0585L32.7618 56.1865L32.4418 56.3785L32.0578 56.6345L31.7378 56.8265L31.4818 57.0825L31.1618 57.4025L30.9058 57.7225L30.6498 58.0425L30.4578 58.3625L30.2658 58.7465L30.0738 59.0665L29.9458 59.4505L29.8178 59.8985L29.7538 60.2825L29.6898 60.7305V61.1785V66.2345V66.6825L29.7538 67.0665L29.8178 67.5145L29.9458 67.8985L30.0738 68.2825L30.2658 68.6665L30.4578 68.9865L30.6498 69.3705L30.9058 69.6905L31.1618 69.9465L31.4818 70.2665L31.7378 70.5225L32.0578 70.7785L32.4418 70.9705L32.7618 71.1625L33.1458 71.3545L33.5298 71.4825L33.9138 71.6105L34.3618 71.6745L34.7458 71.7385H35.1938H35.6418L36.0258 71.6745L36.4738 71.6105L36.8578 71.4825L37.2418 71.3545L37.6258 71.1625L38.0098 70.9705L38.3298 70.7785L38.6498 70.5225L38.9698 70.2665L39.2258 69.9465L39.4818 69.6905L39.7378 69.3705L39.9298 68.9865L40.1218 68.6665L40.3138 68.2825L40.4418 67.8985L40.5698 67.5145L40.6338 67.0665L40.6978 66.6825V66.2345ZM47.9298 71.7385L48.4418 71.8025L48.9538 71.9945L49.4018 72.3785L49.7218 72.7625L49.9778 73.2745L50.0418 73.8505L49.9778 74.4265L49.7218 74.9385L49.4018 75.3225L48.9538 75.7065L48.4418 75.8985L47.9298 75.9625H42.8098L42.2978 75.8985L41.7858 75.7065L41.3378 75.3225L41.0178 74.9385L40.7618 74.4265L40.6978 73.9145V74.3625L41.5298 73.5945L41.1458 73.9785L40.6978 74.2345L40.2498 74.5545L39.8018 74.8105L39.3538 75.0025L38.8418 75.2585L38.3938 75.4505L37.8818 75.5785L37.3698 75.7065L36.8578 75.8345L36.2818 75.8985L35.7698 75.9625H35.1938H34.6818L34.1698 75.8985L33.6578 75.8345L33.1458 75.7065L32.6338 75.6425L32.1218 75.4505L31.6738 75.3225L31.1618 75.0665L30.7138 74.8745L30.2658 74.6185L29.8818 74.3625L29.4338 74.1065L29.0498 73.7865L28.6658 73.4665L28.3458 73.0825L27.9618 72.7625L27.6418 72.3785L27.3218 71.9945L27.0658 71.5465L26.8098 71.1625L26.5538 70.7145L26.3618 70.2665L26.1058 69.7545L25.9778 69.3065L25.7858 68.7945L25.7218 68.2825L25.5938 67.7705L25.5298 67.2585L25.4658 66.7465V66.2345V61.1145V60.6025L25.5298 60.0905L25.5938 59.5785L25.7218 59.0665L25.7858 58.5545L25.9778 58.0425L26.1058 57.5945L26.3618 57.1465L26.5538 56.6985L26.8098 56.2505L27.0658 55.8025L27.3218 55.4185L27.6418 54.9705L27.9618 54.5865L28.3458 54.2665L28.6658 53.8825L29.0498 53.5625L29.4338 53.3065L29.8818 52.9865L30.2658 52.7305L30.7138 52.4745L31.1618 52.2825L31.6738 52.0905L32.1218 51.8985L32.6338 51.7705L33.1458 51.6425L33.6578 51.5145L34.1698 51.4505L34.6818 51.3865H35.1938H35.7698L36.2818 51.4505L36.8578 51.5145L37.3698 51.6425L37.8818 51.7705L38.3938 51.9625L38.8418 52.0905L39.3538 52.3465L39.8018 52.5385L40.2498 52.8585L40.6978 53.1145L41.1458 53.4345L41.5298 53.7545L40.6978 52.9865V53.4985L40.7618 52.9865L41.0178 52.4745L41.3378 52.0265L41.7858 51.7065L42.2978 51.4505L42.8098 51.3865L43.3858 51.4505L43.8978 51.7065L44.3458 52.0265L44.6658 52.4745L44.8578 52.9865L44.9218 53.4985V71.7385H47.9298Z" fill="white"/>
+        <path d="M74.5504 82.216H54.1344L53.6224 82.152L53.1104 81.896L52.6624 81.576L52.3424 81.128L52.1504 80.68L52.0864 80.104L52.1504 79.528L52.3424 79.016L52.6624 78.568L53.1104 78.248L53.6224 78.056L54.1344 77.992H74.5504L75.0624 78.056L75.5744 78.248L76.0224 78.568L76.3424 79.016L76.5344 79.528L76.6624 80.104L76.5344 80.68L76.3424 81.128L76.0224 81.576L75.5744 81.896L75.0624 82.152L74.5504 82.216Z" fill="white"/>
+      </svg>
+    </span>
+    <span class="name">ad<b>a</b>_loom<small>Laurent Marissal</small></span>
+  </div>
+  <nav><a href="#contact">contact</a></nav>
+</header>
+
+<section class="book">
+  <div class="head">
+    <div class="eyebrow-top">portfolio en ligne</div>
+    <div class="eyebrow">design du travail · travail du design</div>
+  </div>
+  <div class="txt">
+    <p class="lead">Trente ans de design graphique et éditorial. Aujourd'hui, <em>des applications propulsées par l'IA au service de vos métiers.</em></p>
+    <p class="sub">Laurent Marissal — studio ada_loom.<br>
+      · No-code &amp; solutions IA<br>
+      · design graphique &amp; éditorial.<br>
+      De l'idée à l'application en ligne, toute la chaîne.</p>
+    <p class="desc">Vingt-et-une planches : <span class="wt">design du travail,</span> prototypes No-Code (PlayOFF, Musée Françoise Robert Garnier) et <span class="wt">travail du design,</span> direction artistique (Brecht &amp; Brecht, NADA, Scripsitpinxit, affiches, livres d'artiste).</p>
+    <div class="actions">
+      <a class="act act--dl" href="Marissal_book.pdf" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" download>
+        <span class="ico">↓</span>
+        <span>portfolio<br>en HD</span>
+      </a>
+      <button class="act act--ghost" type="button" onclick="openProto()">
+        <span class="ico">↓</span>
+        <span>prototype<br>web app</span>
+      </button>
+      <a class="act act--ghost" href="Marissal_CV_2026_free.pdf" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" download>
+        <span class="ico">↓</span>
+        <span>CV</span>
+      </a>
+    </div>
+  </div>
+  <div class="cover-wrap" onclick="openLB(0)">
+    <span class="badge">portfolio</span>
+    <img src="planches/p00.jpg" alt="Portfolio ada_loom — page de titre">
+    <div class="play"><span>feuilleter</span></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="big">Travaillons <em>ensemble</em></div>
+  <div class="info">
+    <a href="mailto:marissal.laurent@laposte.net">marissal.laurent@laposte.net</a><br>
+    <a href="tel:+33782190577">07 82 19 05 77</a><br>
+    La Celle-sur-Morin (77)
+    <span class="k">disponibilité</span>
+    <span class="dispo">disponible — télétravail ou sur site (Paris &amp; Île-de-France)</span>
+    <span class="k">ailleurs</span>
+    <a href="https://www.lespressesdureel.com/auteur.php?id=4429&amp;menu=0" target="_blank" rel="noopener noreferrer">Aux presses du réel</a><br>
+    <a href="https://skol.ca/en-cours/laurent-marissal-nada-fr/" target="_blank" rel="noopener noreferrer">La revue Nada</a><br>
+    <a href="https://www.micheledidier.com/fr/artistes/oeuvres/65/laurent-marissal" target="_blank" rel="noopener noreferrer">galerie mfc-michèle didier</a><br>
+    <a href="https://www.instagram.com/painterman.pinxit" target="_blank" rel="noopener noreferrer">Instagram @painterman.pinxit</a>
+  </div>
+</section>
+
+<footer>
+  <span>ada_loom — Laurent Marissal · Visual Design + AI + Human Work Systems</span>
+  <span>DNSAP Beaux-Arts de Paris · galerie mfc-michèle didier</span>
+</footer>
+
+<!-- ===== LIGHTBOX / CAROUSEL INTERNE (overlay dans la page, jamais bloqué) ===== -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Book ada_loom">
+  <div class="lb-bar">
+    <span class="count">planche <b id="lbNum">1</b> / <span id="lbTot">21</span></span>
+    <span class="lb-dl"><a href="book-web.pdf" download>télécharger le PDF ↓</a></span>
+    <button class="lb-close" onclick="closeLB()">fermer ✕</button>
+  </div>
+  <div class="lb-stage">
+    <div class="lb-nav lb-prev" onclick="stepLB(-1)" aria-label="précédent">‹</div>
+    <img id="lbImg" src="" alt="">
+    <div class="lb-nav lb-next" onclick="stepLB(1)" aria-label="suivant">›</div>
+  </div>
+  <div class="lb-foot" id="lbFoot"></div>
+</div>
+
+<!-- ===== MODAL PROTOTYPE : maquette smartphone (iframe) ===== -->
+<div class="proto" id="proto" role="dialog" aria-modal="true" aria-label="Prototype web app PlayOFF">
+  <div class="proto-bar">
+    <span class="proto-title">prototype · web app — PlayOFF</span>
+    <span class="proto-dl"><a href="https://playoffabc.bubbleapps.io/version-test/index" target="_blank" rel="noopener noreferrer">ouvrir la version responsive ↗</a></span>
+    <button class="proto-close" onclick="closeProto()">fermer ✕</button>
+  </div>
+  <div class="proto-stage">
+    <div class="phone-scaler" id="phoneScaler">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <iframe id="protoFrame" title="Prototype PlayOFF" loading="lazy" referrerpolicy="no-referrer" src="about:blank" data-src="https://playoffabc.bubbleapps.io/version-test/index"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const TOTAL = 21;
+  let cur = 0;
+  const pad = n => String(n).padStart(2,'0');
+  const src = i => `planches/p${pad(i)}.jpg`;
+  const img = document.getElementById('lbImg');
+  const num = document.getElementById('lbNum');
+  const foot = document.getElementById('lbFoot');
+  const lb  = document.getElementById('lb');
+  document.getElementById('lbTot').textContent = TOTAL;
+
+  for(let i=0;i<TOTAL;i++){
+    const t = document.createElement('img');
+    t.src = src(i); t.loading='lazy'; t.dataset.i=i;
+    t.onclick = ()=>show(i);
+    foot.appendChild(t);
+  }
+  const thumbs = [...foot.children];
+
+  function show(i){
+    cur = (i+TOTAL)%TOTAL;
+    img.src = src(cur);
+    img.alt = 'Planche '+(cur+1)+' du book ada_loom';
+    num.textContent = cur+1;
+    thumbs.forEach((t,k)=>t.classList.toggle('active',k===cur));
+    const a = thumbs[cur]; if(a) a.scrollIntoView({inline:'center',block:'nearest'});
+    preload(cur+1); preload(cur-1);
+  }
+  function preload(i){ const im=new Image(); im.src=src((i+TOTAL)%TOTAL); }
+  function openLB(i){ show(i); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLB(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+  function stepLB(d){ show(cur+d); }
+
+  document.addEventListener('keydown',e=>{
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='ArrowRight') stepLB(1);
+    else if(e.key==='ArrowLeft') stepLB(-1);
+    else if(e.key==='Escape') closeLB();
+  });
+  lb.addEventListener('click',e=>{ if(e.target===lb) closeLB(); });
+
+  // ---- modal prototype (maquette smartphone) ----
+  const proto = document.getElementById('proto');
+  const protoFrame = document.getElementById('protoFrame');
+  const phoneScaler = document.getElementById('phoneScaler');
+  const PHONE_W = 418, PHONE_H = 872;
+  function fitPhone(){
+    const stage = proto.querySelector('.proto-stage');
+    if(!stage || !phoneScaler) return;
+    const s = Math.min(stage.clientWidth / PHONE_W, stage.clientHeight / PHONE_H, 1);
+    phoneScaler.style.transform = 'scale(' + s + ')';
+  }
+  function openProto(){ protoFrame.src = protoFrame.dataset.src; proto.classList.add('open'); document.body.style.overflow='hidden'; fitPhone(); }
+  function closeProto(){ proto.classList.remove('open'); protoFrame.src='about:blank'; document.body.style.overflow=''; }
+  proto.addEventListener('click',e=>{ if(e.target===proto) closeProto(); });
+  document.addEventListener('keydown',e=>{ if(proto.classList.contains('open') && e.key==='Escape') closeProto(); });
+  window.addEventListener('resize',()=>{ if(proto.classList.contains('open')) fitPhone(); });
+
+  let x0=null;
+  lb.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  lb.addEventListener('touchend',e=>{
+    if(x0===null) return;
+    const dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>45) stepLB(dx<0?1:-1);
+    x0=null;
+  },{passive:true});
+</script>
+
+</body>
+</html>
