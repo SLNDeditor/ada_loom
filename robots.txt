@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://slndeditor.github.io/ada_loom/sitemap.xml
