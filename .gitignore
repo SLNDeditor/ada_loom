@@ -10,3 +10,6 @@ ada_loom alias
 # (les autres restent en local ; évite de redistribuer Helvetica/Futura, etc.)
 font/*
 !font/Deimos-ExtraBold-Pro.otf
+
+# Instructions Claude Code (local, non publié)
+CLAUDE.md
