@@ -1,0 +1,9 @@
+Dossier des images de Là_voir.
+
+Chaque œuvre saisie dans admin.html avec une image :
+1. l'admin redimensionne l'image et la télécharge (ex. « nom-titre.jpg ») ;
+2. déposez ce fichier ICI, dans ce dossier medias/ ;
+3. la fiche de l'œuvre ne retient que le chemin « medias/nom-titre.jpg »
+   et le site l'affiche dans le héro.
+
+Si le fichier n'est pas encore là, le site masque simplement l'image.

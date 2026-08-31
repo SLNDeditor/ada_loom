@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /la_voir/
 
 Sitemap: https://adaloom.studio/sitemap.xml
