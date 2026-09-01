@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /la_voir/
+Disallow: /recrutement.html
+Disallow: /plandacquisition.html
 
 Sitemap: https://adaloom.studio/sitemap.xml
