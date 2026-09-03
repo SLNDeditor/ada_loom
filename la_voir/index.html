@@ -144,8 +144,24 @@
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .work .who{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:25px;line-height:1.1;letter-spacing:.01em;color:var(--rose);margin:0}
   /* largeur = --photo : le bord droit de la photo sert d'axe aux pastilles */
-  .work .w-img{display:block;width:100%;max-width:var(--photo);height:auto;border-radius:3px;margin:14px 0 26px;cursor:zoom-in}
+  .work .w-carousel{position:relative;max-width:var(--photo);margin:14px 0 26px}
+  .work .w-carousel[hidden]{display:none}
+  .work .w-img{display:block;width:100%;height:auto;border-radius:3px;cursor:zoom-in}
   .work .w-img[hidden]{display:none}
+  .car-btn{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+    width:34px;height:34px;border-radius:50%;border:1.5px solid #fff;
+    background:rgba(20,2,8,.4);color:#fff;font-size:18px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:background .2s;
+  }
+  .car-btn:hover{background:rgba(20,2,8,.7)}
+  .car-btn[hidden]{display:none}
+  .car-prev{left:10px}
+  .car-next{right:10px}
+  .car-dots{display:flex;gap:7px;justify-content:center;margin-top:12px}
+  .car-dots[hidden]{display:none}
+  .car-dot{width:7px;height:7px;padding:0;border-radius:50%;border:0;background:var(--titre);opacity:.4;cursor:pointer}
+  .car-dot.active{opacity:1;background:var(--rose)}
 
   /* ---- visionneuse plein écran : cliquer la photo pour zoomer sur les détails ---- */
   .lightbox{
@@ -155,12 +171,15 @@
     cursor:zoom-out;
   }
   .lightbox.open{display:flex}
-  .lightbox img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:2px}
+  .lightbox img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:2px;cursor:default}
   .lightbox-close{
     position:fixed;top:18px;right:22px;z-index:201;
     width:40px;height:40px;border-radius:50%;border:1.5px solid #fff;background:transparent;color:#fff;
     font-size:20px;line-height:1;cursor:pointer;
   }
+  .lightbox .car-btn{width:44px;height:44px;font-size:22px;background:rgba(20,2,8,.5)}
+  .lightbox .car-prev{left:18px}
+  .lightbox .car-next{right:18px}
   .work h1{
     font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-style:normal;
     font-size:25px;line-height:1.15;letter-spacing:.01em;
@@ -258,7 +277,12 @@
     <article class="work" id="work">
       <div class="who" id="wWho"></div>
       <h1 id="wTitre"></h1>
-      <img class="w-img" id="wImg" alt="" hidden tabindex="0" role="button" aria-label="agrandir la photo">
+      <div class="w-carousel" id="wCarousel" hidden>
+        <img class="w-img" id="wImg" alt="" tabindex="0" role="button" aria-label="agrandir la photo">
+        <button class="car-btn car-prev" id="carPrev" type="button" aria-label="image précédente" hidden>‹</button>
+        <button class="car-btn car-next" id="carNext" type="button" aria-label="image suivante" hidden>›</button>
+        <div class="car-dots" id="carDots" hidden></div>
+      </div>
       <div class="facts" id="wFacts"></div>
       <div class="recit" id="wRecit"></div>
       <a class="site" id="wSite" target="_blank" rel="noopener noreferrer">site de l'artiste ↗</a>
@@ -273,7 +297,9 @@
 
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox-close" id="lightboxClose" type="button" aria-label="fermer">✕</button>
+  <button class="car-btn car-prev" id="lbPrev" type="button" aria-label="image précédente" hidden>‹</button>
   <img id="lightboxImg" alt="">
+  <button class="car-btn car-next" id="lbNext" type="button" aria-label="image suivante" hidden>›</button>
 </div>
 
 <script>
@@ -289,7 +315,7 @@
       lieu:"Lavoir des roches",
       gps:"",
       site:"",
-      image:"medias/la_voir-lavoir-avant-la-voir.jpg",
+      images:["medias/la_voir-lavoir-avant-la-voir.jpg"],
       recit:"Là_voir, un lieu quelque part où voir quelque chose. Contre un regard sur  une de ses œuvres, un·e artiste abandonne une de ses œuvres au regard. Là_voir sans vente ni subvention. Là_voir commence au lavoir des roches. Là_voir s'établit là ou il y a à voir..."
     }
   ];
@@ -350,6 +376,63 @@
   const wi = document.getElementById('wImg');
   const work = document.getElementById('work');
 
+  /* ---------- carrousel : une œuvre peut avoir plusieurs photos ---------- */
+  const wCarousel = document.getElementById('wCarousel');
+  const carPrev = document.getElementById('carPrev');
+  const carNext = document.getElementById('carNext');
+  const carDots = document.getElementById('carDots');
+  let curImages = [];
+  let curIdx = 0;
+
+  // compatibilité : fiches anciennes avec un seul champ « image »
+  function workImages(w){
+    if(Array.isArray(w.images)) return w.images.filter(Boolean);
+    return w.image ? [w.image] : [];
+  }
+
+  function setSlide(i){
+    if(!curImages.length) return;
+    curIdx = (i + curImages.length) % curImages.length;
+    wi.src = curImages[curIdx];
+    [...carDots.children].forEach((d,k)=>d.classList.toggle('active', k===curIdx));
+    if(lightbox.classList.contains('open')) showLightboxSlide();
+  }
+
+  function loadCarousel(w){
+    curImages = workImages(w);
+    curIdx = 0;
+    wi.alt = w.titre ? ('« '+w.titre+' », '+(w.nom||'')) : (w.nom||'œuvre');
+    wi.onerror = () => { wi.hidden = true; };          // fichier medias/ pas encore déposé
+    carDots.innerHTML = '';
+    if(!curImages.length){
+      wCarousel.hidden = true; wi.hidden = true; wi.removeAttribute('src');
+      carPrev.hidden = carNext.hidden = carDots.hidden = true;
+      return;
+    }
+    wCarousel.hidden = false; wi.hidden = false;
+    const multi = curImages.length > 1;
+    carPrev.hidden = carNext.hidden = carDots.hidden = !multi;
+    if(multi) curImages.forEach((_,k)=>{
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'car-dot';
+      b.setAttribute('aria-label', 'image ' + (k+1) + ' sur ' + curImages.length);
+      b.onclick = () => setSlide(k);
+      carDots.appendChild(b);
+    });
+    setSlide(0);
+  }
+
+  function addSwipe(el, onLeft, onRight){
+    let x0 = null;
+    el.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+    el.addEventListener('touchend', e => {
+      if(x0 == null) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if(Math.abs(dx) < 40) return;
+      dx < 0 ? onLeft() : onRight();
+    }, {passive:true});
+  }
+
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
   // affichage réduit (menu) : 30 caractères pour l'auteur / le titre
   function clip(s,n){ s = String(s==null?'':s).trim(); return s.length>n ? s.slice(0,n-1).trimEnd()+'…' : s; }
@@ -365,12 +448,7 @@
     document.getElementById('wWho').textContent = w.nom || '';
     document.getElementById('wTitre').textContent = w.titre || 'sans titre';
 
-    if(w.image){
-      wi.onerror = () => { wi.hidden = true; };          // fichier medias/ pas encore déposé
-      wi.hidden = false;
-      wi.alt = w.titre ? ('« '+w.titre+' », '+(w.nom||'')) : (w.nom||'œuvre');
-      wi.src = w.image;                                   // « medias/xxx.jpg » ou dataURL
-    } else { wi.hidden = true; wi.removeAttribute('src'); wi.alt = ''; }
+    loadCarousel(w);
 
     let gps = '';
     if(w.gps && w.gps.trim()){
@@ -444,13 +522,21 @@
   });
   document.addEventListener('click', ()=>acts.forEach(x=>x.classList.remove('open')));
 
-  /* ---------- photo : agrandir en plein écran au clic pour zoomer sur les détails ---------- */
+  /* ---------- photo : agrandir en plein écran, naviguer entre plusieurs images ---------- */
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
-  function openLightbox(){
-    if(!wi.src || wi.hidden) return;
-    lightboxImg.src = wi.src;
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+
+  function showLightboxSlide(){
+    lightboxImg.src = curImages[curIdx];
     lightboxImg.alt = wi.alt;
+    const multi = curImages.length > 1;
+    lbPrev.hidden = lbNext.hidden = !multi;
+  }
+  function openLightbox(){
+    if(!curImages.length || wi.hidden) return;
+    showLightboxSlide();
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden','false');
   }
@@ -462,10 +548,24 @@
   wi.addEventListener('click', openLightbox);
   wi.addEventListener('keydown', e=>{
     if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLightbox(); }
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); setSlide(curIdx-1); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); setSlide(curIdx+1); }
   });
+  carPrev.addEventListener('click', ()=>setSlide(curIdx-1));
+  carNext.addEventListener('click', ()=>setSlide(curIdx+1));
+  addSwipe(wi, ()=>setSlide(curIdx+1), ()=>setSlide(curIdx-1));
+
   lightbox.addEventListener('click', closeLightbox);
   document.getElementById('lightboxClose').addEventListener('click', e=>{ e.stopPropagation(); closeLightbox(); });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+  lbPrev.addEventListener('click', e=>{ e.stopPropagation(); setSlide(curIdx-1); });
+  lbNext.addEventListener('click', e=>{ e.stopPropagation(); setSlide(curIdx+1); });
+  addSwipe(lightboxImg, ()=>setSlide(curIdx+1), ()=>setSlide(curIdx-1));
+  document.addEventListener('keydown', e=>{
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key==='Escape') closeLightbox();
+    else if(e.key==='ArrowLeft') setSlide(curIdx-1);
+    else if(e.key==='ArrowRight') setSlide(curIdx+1);
+  });
 </script>
 
 </body>

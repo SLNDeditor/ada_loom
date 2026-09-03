@@ -8,7 +8,7 @@
     "gps": "",
     "recit": "Là_voir, un lieu quelque part où voir quelque chose. Un·e artiste expose une œuvre aux quatre vents - au risque de la voir disparaître . Là_voir sans vente ni subvention. Là_voir commence au lavoir des roches. Là_voir s'établit là où il y a à voir",
     "site": "",
-    "image": "medias/la_voir-lavoir-avant-la-voir.jpg"
+    "images": ["medias/la_voir-lavoir-avant-la-voir.jpg"]
   },
   {
     "nom": "Guillaume Clermont",
@@ -19,6 +19,6 @@
     "gps": "",
     "recit": "Voir aussi de l'artiste :\nhttps://3152.info/\nhttps://new-eldorado.info/archives.php\nhttps://www.lecasier.be/\nlacentraleedizioni.wordpress.com/2023/10/04/ce-truc-marron-au-mur/",
     "site": "https://www.guillaumeclermont.org",
-    "image": "medias/guillaume-clermont-cranada.jpg"
+    "images": ["medias/guillaume-clermont-cranada.jpg"]
   }
 ]
