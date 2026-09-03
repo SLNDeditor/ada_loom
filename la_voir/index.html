@@ -144,8 +144,23 @@
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .work .who{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:25px;line-height:1.1;letter-spacing:.01em;color:var(--rose);margin:0}
   /* largeur = --photo : le bord droit de la photo sert d'axe aux pastilles */
-  .work .w-img{display:block;width:100%;max-width:var(--photo);height:auto;border-radius:3px;margin:14px 0 26px}
+  .work .w-img{display:block;width:100%;max-width:var(--photo);height:auto;border-radius:3px;margin:14px 0 26px;cursor:zoom-in}
   .work .w-img[hidden]{display:none}
+
+  /* ---- visionneuse plein écran : cliquer la photo pour zoomer sur les détails ---- */
+  .lightbox{
+    display:none;position:fixed;inset:0;z-index:200;
+    background:rgba(15,2,6,.92);
+    align-items:center;justify-content:center;padding:5vw;
+    cursor:zoom-out;
+  }
+  .lightbox.open{display:flex}
+  .lightbox img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:2px}
+  .lightbox-close{
+    position:fixed;top:18px;right:22px;z-index:201;
+    width:40px;height:40px;border-radius:50%;border:1.5px solid #fff;background:transparent;color:#fff;
+    font-size:20px;line-height:1;cursor:pointer;
+  }
   .work h1{
     font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-style:normal;
     font-size:25px;line-height:1.15;letter-spacing:.01em;
@@ -243,7 +258,7 @@
     <article class="work" id="work">
       <div class="who" id="wWho"></div>
       <h1 id="wTitre"></h1>
-      <img class="w-img" id="wImg" alt="" hidden>
+      <img class="w-img" id="wImg" alt="" hidden tabindex="0" role="button" aria-label="agrandir la photo">
       <div class="facts" id="wFacts"></div>
       <div class="recit" id="wRecit"></div>
       <a class="site" id="wSite" target="_blank" rel="noopener noreferrer">site de l'artiste ↗</a>
@@ -255,6 +270,11 @@
   <span>Là<span class="uscore">_</span>voir — exposition clandestine</span>
   <span id="adminLink"><a href="admin.html">admin</a></span>
 </footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="fermer">✕</button>
+  <img id="lightboxImg" alt="">
+</div>
 
 <script>
   /* ---------- store : localStorage + graine ---------- */
@@ -327,6 +347,7 @@
   /* ---------- rail ---------- */
   const railList = document.getElementById('railList');
   const intro = document.getElementById('intro');
+  const wi = document.getElementById('wImg');
   const work = document.getElementById('work');
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -344,7 +365,6 @@
     document.getElementById('wWho').textContent = w.nom || '';
     document.getElementById('wTitre').textContent = w.titre || 'sans titre';
 
-    const wi = document.getElementById('wImg');
     if(w.image){
       wi.onerror = () => { wi.hidden = true; };          // fichier medias/ pas encore déposé
       wi.hidden = false;
@@ -423,6 +443,29 @@
     });
   });
   document.addEventListener('click', ()=>acts.forEach(x=>x.classList.remove('open')));
+
+  /* ---------- photo : agrandir en plein écran au clic pour zoomer sur les détails ---------- */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  function openLightbox(){
+    if(!wi.src || wi.hidden) return;
+    lightboxImg.src = wi.src;
+    lightboxImg.alt = wi.alt;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden','false');
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden','true');
+    lightboxImg.removeAttribute('src');
+  }
+  wi.addEventListener('click', openLightbox);
+  wi.addEventListener('keydown', e=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLightbox(); }
+  });
+  lightbox.addEventListener('click', closeLightbox);
+  document.getElementById('lightboxClose').addEventListener('click', e=>{ e.stopPropagation(); closeLightbox(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
 </script>
 
 </body>
