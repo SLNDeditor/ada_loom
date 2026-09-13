@@ -304,7 +304,7 @@
     try {
       pdfDoc = await pdfjsLib.getDocument('book_illustrateur-2.pdf').promise;
       document.getElementById('lbTot').textContent = pdfDoc.numPages;
-      renderPage(2);
+      renderPage(1);
     } catch(e){
       console.error('Erreur PDF:', e);
       document.getElementById('pdf-canvas').textContent = 'Erreur: PDF non trouvé';
