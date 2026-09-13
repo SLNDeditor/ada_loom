@@ -103,7 +103,7 @@
   .pastille{cursor:pointer}
 
   .book{
-    padding:clamp(48px,9vh,100px) clamp(20px,5vw,64px);
+    padding:clamp(32px,6vh,64px) clamp(20px,5vw,64px);
     display:grid;grid-template-columns:1.05fr .95fr;
     grid-template-areas:"head ." "txt cover";
     column-gap:clamp(36px,6vw,80px);row-gap:0;
@@ -114,7 +114,7 @@
   .book .cover-wrap{grid-area:cover}
   .book .eyebrow-top{font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-bottom:10px}
   .book .eyebrow{font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:20px}
-  .book .eyebrow em{font-style:italic;color:var(--jaune);font-weight:400}
+  .book .eyebrow em{font-style:normal;color:var(--magenta);font-weight:400}
   .book .txt .lead{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(20px,4vw,25px);line-height:1.22;letter-spacing:-.01em;color:var(--jaune);max-width:30ch;margin-bottom:22px}
   .book .txt .lead em{font-style:italic;color:var(--jaune)}
   .book .txt .sub{color:#cbc8db;font-size:clamp(17px,1.5vw,19px);line-height:1.7;max-width:52ch;margin-bottom:18px}
@@ -214,15 +214,15 @@
 <section class="book">
   <div class="head">
     <div class="eyebrow-top">portfolio illustration</div>
-    <div class="eyebrow"><em>de la description à la narration, de l'illustration à l'autopiction</em></div>
+    <div class="eyebrow">de la description à la narration, de l'illustration à l'autopiction</div>
   </div>
   <div class="txt">
-    <h1 class="lead">Portfolio en ligne. <em>Trente ans de travail de trait, de forme et d'image.</em></h1>
+    <h1 class="lead">Portfolio en ligne. <em>Trente ans de dessin, de trait, de forme et d'image.</em></h1>
     <p class="sub">Laurent Marissal — studio ada<span class="uscore">_</span>loom.<br>
       · Illustration éditoriale, presse, jeunesse, narrative, documentaire<br>
       · Lettering, character design, pictogrammes, BD<br>
       · Couvertures, livres, revues, affiches — illustration de narration.</p>
-    <p class="desc">Références : <span class="wt">Brecht &amp; Brecht, Les presses du réel (2021),</span> Portrait d'un terroriste en amateur d'art (2024), PINXIT III (2026), LJCBD (2006), <span class="wt">Zalia Sékaï — Algériennes surexposées</span> (2025), NADA (63 numéros), affiches et travail de trait.</p>
+    <p class="desc">Références : <span class="wt">Brecht &amp; Brecht, Les presses du réel (2021) nominé au prix Bob Calle 2025,</span> Portrait d'un terroriste en amateur d'art (2024), PINXIT I à III (2026), revue NADA (63 numéros), affiches et travail de trait...</p>
     <p class="also">Voir aussi en ligne :</p>
     <div class="actions">
       <a class="act act--ghost act--sep" href="https://www.instagram.com/painterman.pinxit" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
@@ -243,7 +243,7 @@
       </a>
     </div>
   </div>
-  <div class="cover-wrap" onclick="openLB(0)">
+  <div class="cover-wrap" onclick="openLB()">
     <span class="badge">illustration</span>
     <img src="cover.png" alt="Book illustration de Laurent Marissal, studio ada_loom — illustration éditoriale, presse, jeunesse, narrative, documentaire" width="1417" height="1004">
     <div class="play"><span>feuilleter &gt;</span></div>
@@ -304,7 +304,7 @@
     try {
       pdfDoc = await pdfjsLib.getDocument('book_illustrateur-2.pdf').promise;
       document.getElementById('lbTot').textContent = pdfDoc.numPages;
-      renderPage(1);
+      renderPage(2);
     } catch(e){
       console.error('Erreur PDF:', e);
       document.getElementById('pdf-canvas').textContent = 'Erreur: PDF non trouvé';
