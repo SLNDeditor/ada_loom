@@ -62,6 +62,10 @@
     --paper:#f4f2ec;
     --ink:#171226;
     --grey:#8a86a0;
+    /* diamètre du médaillon central, et dégagement que chaque face doit
+       laisser du côté de la couture pour ne pas passer dessous */
+    --med:clamp(176px,21vw,290px);
+    --degagement:calc(var(--med) / 2 + clamp(18px,2.6vw,42px));
   }
 
   *{margin:0;padding:0;box-sizing:border-box}
@@ -97,8 +101,8 @@
     padding:clamp(100px,16vh,180px) clamp(20px,4vw,56px) clamp(80px,12vh,120px);
     transition:filter .45s ease;
   }
-  .face--a{background:var(--magenta-deep);color:#fff}
-  .face--b{background:var(--violet-deep)}
+  .face--a{background:var(--magenta-deep);color:#fff;padding-right:var(--degagement)}
+  .face--b{background:var(--violet-deep);padding-left:var(--degagement)}
 
   /* au survol d'une face, l'autre recule légèrement : aide à trancher */
   .seuil:has(.face--a .porte:hover) .face--b,
@@ -106,12 +110,17 @@
 
   /* --- la porte : titre + sous-titre, lien unique étendu à toute la face --- */
   .porte{display:block;max-width:34ch;margin:0 auto;width:100%}
+  /* libellé de la porte : c'est lui qui nomme l'entrée, d'où le corps 35px */
   .porte .ref{
-    font-size:clamp(13px,1.1vw,15px);letter-spacing:.2em;text-transform:uppercase;
-    margin-bottom:10px;
+    /* bloc : sinon le libellé se place sur la même ligne que le titre, qui est
+       en inline-block, dès que les deux tiennent côte à côte (mobile) */
+    display:block;
+    font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
+    font-size:35px;line-height:1.1;letter-spacing:.02em;
+    margin-bottom:6px;
   }
-  .face--a .porte .ref{color:var(--jaune)}
-  .face--b .porte .ref{color:var(--grey)}
+  .face--a .porte .ref{color:#fff}
+  .face--b .porte .ref{color:var(--paper)}
 
   .porte .nom{
     font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
@@ -142,21 +151,23 @@
     position:relative;z-index:2;
     max-width:34ch;margin:clamp(20px,3.5vh,34px) auto 0;width:100%;
     list-style:none;
-  }
-  .mots li{line-height:1.5}
-  .mots a{
-    display:inline-flex;align-items:baseline;gap:9px;
     font-size:clamp(14px,1.15vw,16px);
+  }
+  /* puce carrée (comme sur le document imprimé) sortie du flux : la hauteur
+     de ligne reste exactement line-height, ce dont dépend l'alignement des
+     deux colonnes sur les mêmes horizontales */
+  .mots li{line-height:1.5;position:relative;padding-left:1.15em}
+  .mots li::before{
+    content:"\25A0";position:absolute;left:0;top:0;
+    font-size:.62em;line-height:2.42;
+  }
+  .face--a .mots li::before{color:var(--jaune)}
+  .face--b .mots li::before{color:var(--magenta-clair)}
+  .mots a{
+    font-size:inherit;
     border-bottom:1px solid transparent;
     transition:color .2s,border-color .2s;
   }
-  /* puce carrée, comme sur le document imprimé */
-  .mots a::before{
-    content:"\25A0";font-size:.62em;line-height:1;position:relative;top:-.15em;
-    transition:color .2s;
-  }
-  .face--a .mots a::before{color:var(--jaune)}
-  .face--b .mots a::before{color:var(--magenta-clair)}
   .face--a .mots a{color:rgba(255,255,255,.92)}
   .face--a .mots a:hover{color:var(--jaune);border-bottom-color:var(--jaune)}
   .face--b .mots a{color:rgba(244,242,236,.82)}
@@ -174,29 +185,53 @@
   .entrer .arr{display:inline-block;transition:transform .25s}
   .porte:hover ~ .entrer .arr,.face:hover .entrer .arr{transform:translateX(6px)}
 
-  /* ---------- signature ada_loom : plaque posée sur la couture ---------- */
-  .signature{
-    position:absolute;top:0;left:50%;transform:translateX(-50%);
+  /* Les deux faces n'ont pas le même nombre de mots-clefs : on impose aux
+     blocs communs une hauteur minimale identique pour que libellés, titres,
+     sous-titres et « entrer » tombent exactement sur les mêmes horizontales.
+     Sans objet en mobile, où les faces sont empilées. */
+  @media(min-width:861px){
+    .porte .ref{min-height:1.1em}
+    .porte .nom{min-height:2em}          /* line-height 1  -> deux lignes */
+    .porte .quoi{min-height:2.9em}       /* line-height 1.45 -> deux lignes */
+    .mots{min-height:calc(8 * 1.5em)}    /* la plus longue des deux listes */
+  }
+
+  /* ---------- médaillon : la signature, au centre, sur la couture ---------- */
+  .medaillon{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
     z-index:3;
-    display:flex;align-items:center;gap:14px;
-    background:var(--violet-deep);
-    padding:18px clamp(20px,3vw,34px) 20px;
-    border-radius:0 0 4px 4px;
-    box-shadow:0 18px 50px -24px rgba(0,0,0,.9);
+    /* purement graphique : les clics traversent vers la face du dessous,
+       aucune zone morte au milieu de la page */
+    pointer-events:none;
+    width:var(--med);height:var(--med);border-radius:50%;
+    background:var(--jaune);color:var(--violet);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    /* padding en calc sur --med, et non en % : un pourcentage se résoudrait
+       sur la largeur du bloc conteneur (toute la page), pas sur le cercle */
+    text-align:center;padding:0 calc(var(--med) * .11);
+    box-shadow:0 26px 64px -28px rgba(0,0,0,.8);
   }
-  .signature .pastille{width:52px;height:auto;flex:0 0 auto;display:block}
-  .signature .pastille svg{display:block;width:100%;height:auto}
-  .signature .nom{
+  /* pastille « a_ » en débord, comme sur le document imprimé */
+  .medaillon .pastille{
+    position:absolute;top:-3%;left:-5%;
+    width:33%;height:auto;display:block;
+  }
+  .medaillon .pastille svg{display:block;width:100%;height:auto}
+  .medaillon .nom,.medaillon .tag{width:100%}
+  .medaillon .nom{
     font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
-    font-size:clamp(20px,2.2vw,26px);letter-spacing:.02em;color:var(--paper);
-    line-height:1.1;
+    font-size:clamp(17px,2vw,26px);line-height:1.05;letter-spacing:.02em;
+    color:var(--violet);
   }
-  .signature .nom b{color:var(--magenta)}
-  .signature .nom small{
-    display:block;font-family:"Fraunces",serif;font-style:italic;font-weight:400;
-    font-size:clamp(12px,1.1vw,14px);letter-spacing:0;color:var(--grey);
-    margin-top:4px;white-space:nowrap;
+  .medaillon .nom b{color:var(--magenta-deep)}
+  .medaillon .tag{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+    font-size:clamp(9.5px,.95vw,12.5px);line-height:1.35;
+    color:var(--violet);opacity:.78;margin-top:6px;
   }
+  /* deux lignes insécables : dans un cercle, un retour à la ligne au milieu
+     d'un mot est illisible — mieux vaut déborder visiblement si ça arrive */
+  .medaillon .tag span{display:block;white-space:nowrap}
 
   /* ---------- liens de coin, discrets ---------- */
   .coin{
@@ -223,13 +258,22 @@
     from{opacity:0;transform:translateX(-50%) translateY(14px)}
     to{opacity:1;transform:translateX(-50%)}
   }
+  /* le médaillon est centré sur les deux axes : son animation doit conserver
+     translate(-50%,-50%), sinon elle l'écrase en fin de course */
+  @keyframes pose-medaillon{
+    from{opacity:0;transform:translate(-50%,-50%) scale(.88)}
+    to{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  }
   .porte .ref,.porte .nom,.porte .quoi,.mots li,.entrer{
     animation:monte .6s cubic-bezier(.2,.7,.2,1) both;
   }
-  .signature,.coin{
+  .coin{
     animation:monte-centre .6s cubic-bezier(.2,.7,.2,1) both;
   }
-  .signature{animation-delay:.05s}
+  .medaillon{
+    animation:pose-medaillon .7s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .medaillon{animation-delay:.05s}
   .face--a .porte .ref{animation-delay:.18s}
   .face--a .porte .nom{animation-delay:.24s}
   .face--a .porte .quoi{animation-delay:.30s}
@@ -251,13 +295,15 @@
   /* ---------- mobile : faces empilées, toujours groupées sous ada_loom ---------- */
   @media(max-width:860px){
     body{font-size:16px}
-    /* Face A prend la hauteur de son contenu (huit mots-clefs), Face B occupe
-       le reste : les deux tiennent dans le viewport sans défilement. */
-    .seuil{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+    :root{--med:clamp(132px,34vw,160px);--degagement:calc(var(--med) / 2 + 12px)}
+    /* faces empilées à parts égales : la couture tombe à 50 %, exactement là
+       où le médiallon est centré */
+    .seuil{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
     .face{padding:14px 20px;justify-content:center}
-    /* dégagement pour la plaque de signature, puis pour les liens de coin */
-    .face--a{padding-top:74px}
-    .face--b{padding-bottom:56px}
+    /* chaque face dégage la moitié du médaillon du côté de la couture */
+    .face--a{padding-right:20px;padding-bottom:var(--degagement)}
+    .face--b{padding-left:20px;padding-top:var(--degagement);padding-bottom:52px}
+    .porte .ref{font-size:35px;margin-bottom:4px}
     .porte,.mots,.entrer{max-width:none}
     .porte .ref{margin-bottom:6px}
     .porte .nom{font-size:clamp(26px,7.4vw,36px)}
@@ -265,22 +311,21 @@
     .porte .quoi{max-width:32ch;margin-top:8px;line-height:1.4}
     .mots{margin-top:12px}
     .mots li{line-height:1.34}
-    .mots a{font-size:13px;gap:7px}
+    .mots a{font-size:13px}
+    .mots{font-size:13px}
     .entrer{margin-top:12px}
-    .signature{padding:12px 20px 14px;gap:11px}
-    .signature .pastille{width:40px}
-    .signature .nom{font-size:19px}
-    .signature .nom small{font-size:11px}
     /* pas de recul de l'autre face au survol : sans objet au doigt */
     .seuil:has(.face--a .porte:hover) .face--b,
     .seuil:has(.face--b .porte:hover) .face--a{filter:none}
   }
 
-  /* écrans très courts : on rend la main au défilement plutôt que de rogner */
+  /* écrans très courts : on rend la main au défilement plutôt que de rogner,
+     et le médaillon redescend dans le flux au-dessus des deux faces */
   @media(max-height:520px){
     .seuil{min-height:0}
-    .face{padding-top:92px;padding-bottom:40px}
-    .signature,.coin{position:static;transform:none;margin:0 auto}
+    .face{padding-top:28px;padding-bottom:36px}
+    .medaillon,.coin{position:static;transform:none;margin:18px auto}
+    .medaillon{animation:none}
   }
 
   @media(prefers-reduced-motion:reduce){
@@ -298,7 +343,7 @@
 
   <section class="face face--a">
     <a class="porte" href="face-a.html">
-      <span class="ref">[ face # A | communication ]</span>
+      <span class="ref">Face A</span>
       <h2 class="nom">travail du design</h2>
       <span class="quoi">communication et création visuelle et audiovisuelle</span>
     </a>
@@ -317,7 +362,7 @@
 
   <section class="face face--b">
     <a class="porte" href="face-b.html">
-      <span class="ref">[ face # B | production ]</span>
+      <span class="ref">Face B</span>
       <h2 class="nom">design du travail</h2>
       <span class="quoi">solutions IA et automatisation</span>
     </a>
@@ -331,16 +376,17 @@
     <p class="entrer" aria-hidden="true">entrer <span class="arr">&#8594;</span></p>
   </section>
 
-  <!-- signature / logotype : posée sur la couture des deux faces -->
-  <div class="signature">
-    <span class="pastille">
-      <svg viewBox="0 0 106 119" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+  <!-- médaillon : la signature, au centre, posée sur la couture des deux faces -->
+  <div class="medaillon">
+    <span class="pastille" aria-hidden="true">
+<svg viewBox="0 0 106 119" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
         <circle cx="53" cy="66" r="53" fill="#EC008C"/>
         <path d="M40.6978 66.2345V61.1785V60.7305L40.6338 60.2825L40.5698 59.8985L40.4418 59.4505L40.3138 59.0665L40.1218 58.7465L39.9298 58.3625L39.7378 58.0425L39.4818 57.7225L39.2258 57.4025L38.9698 57.0825L38.6498 56.8265L38.3298 56.6345L38.0098 56.3785L37.6258 56.1865L37.2418 56.0585L36.8578 55.8665L36.4738 55.8025L36.0258 55.6745H35.6418L35.1938 55.6105L34.7458 55.6745H34.3618L33.9138 55.8025L33.5298 55.8665L33.1458 56.0585L32.7618 56.1865L32.4418 56.3785L32.0578 56.6345L31.7378 56.8265L31.4818 57.0825L31.1618 57.4025L30.9058 57.7225L30.6498 58.0425L30.4578 58.3625L30.2658 58.7465L30.0738 59.0665L29.9458 59.4505L29.8178 59.8985L29.7538 60.2825L29.6898 60.7305V61.1785V66.2345V66.6825L29.7538 67.0665L29.8178 67.5145L29.9458 67.8985L30.0738 68.2825L30.2658 68.6665L30.4578 68.9865L30.6498 69.3705L30.9058 69.6905L31.1618 69.9465L31.4818 70.2665L31.7378 70.5225L32.0578 70.7785L32.4418 70.9705L32.7618 71.1625L33.1458 71.3545L33.5298 71.4825L33.9138 71.6105L34.3618 71.6745L34.7458 71.7385H35.1938H35.6418L36.0258 71.6745L36.4738 71.6105L36.8578 71.4825L37.2418 71.3545L37.6258 71.1625L38.0098 70.9705L38.3298 70.7785L38.6498 70.5225L38.9698 70.2665L39.2258 69.9465L39.4818 69.6905L39.7378 69.3705L39.9298 68.9865L40.1218 68.6665L40.3138 68.2825L40.4418 67.8985L40.5698 67.5145L40.6338 67.0665L40.6978 66.6825V66.2345ZM47.9298 71.7385L48.4418 71.8025L48.9538 71.9945L49.4018 72.3785L49.7218 72.7625L49.9778 73.2745L50.0418 73.8505L49.9778 74.4265L49.7218 74.9385L49.4018 75.3225L48.9538 75.7065L48.4418 75.8985L47.9298 75.9625H42.8098L42.2978 75.8985L41.7858 75.7065L41.3378 75.3225L41.0178 74.9385L40.7618 74.4265L40.6978 73.9145V74.3625L41.5298 73.5945L41.1458 73.9785L40.6978 74.2345L40.2498 74.5545L39.8018 74.8105L39.3538 75.0025L38.8418 75.2585L38.3938 75.4505L37.8818 75.5785L37.3698 75.7065L36.8578 75.8345L36.2818 75.8985L35.7698 75.9625H35.1938H34.6818L34.1698 75.8985L33.6578 75.8345L33.1458 75.7065L32.6338 75.6425L32.1218 75.4505L31.6738 75.3225L31.1618 75.0665L30.7138 74.8745L30.2658 74.6185L29.8818 74.3625L29.4338 74.1065L29.0498 73.7865L28.6658 73.4665L28.3458 73.0825L27.9618 72.7625L27.6418 72.3785L27.3218 71.9945L27.0658 71.5465L26.8098 71.1625L26.5538 70.7145L26.3618 70.2665L26.1058 69.7545L25.9778 69.3065L25.7858 68.7945L25.7218 68.2825L25.5938 67.7705L25.5298 67.2585L25.4658 66.7465V66.2345V61.1145V60.6025L25.5298 60.0905L25.5938 59.5785L25.7218 59.0665L25.7858 58.5545L25.9778 58.0425L26.1058 57.5945L26.3618 57.1465L26.5538 56.6985L26.8098 56.2505L27.0658 55.8025L27.3218 55.4185L27.6418 54.9705L27.9618 54.5865L28.3458 54.2665L28.6658 53.8825L29.0498 53.5625L29.4338 53.3065L29.8818 52.9865L30.2658 52.7305L30.7138 52.4745L31.1618 52.2825L31.6738 52.0905L32.1218 51.8985L32.6338 51.7705L33.1458 51.6425L33.6578 51.5145L34.1698 51.4505L34.6818 51.3865H35.1938H35.7698L36.2818 51.4505L36.8578 51.5145L37.3698 51.6425L37.8818 51.7705L38.3938 51.9625L38.8418 52.0905L39.3538 52.3465L39.8018 52.5385L40.2498 52.8585L40.6978 53.1145L41.1458 53.4345L41.5298 53.7545L40.6978 52.9865V53.4985L40.7618 52.9865L41.0178 52.4745L41.3378 52.0265L41.7858 51.7065L42.2978 51.4505L42.8098 51.3865L43.3858 51.4505L43.8978 51.7065L44.3458 52.0265L44.6658 52.4745L44.8578 52.9865L44.9218 53.4985V71.7385H47.9298Z" fill="white"/>
         <path d="M74.5504 82.216H54.1344L53.6224 82.152L53.1104 81.896L52.6624 81.576L52.3424 81.128L52.1504 80.68L52.0864 80.104L52.1504 79.528L52.3424 79.016L52.6624 78.568L53.1104 78.248L53.6224 78.056L54.1344 77.992H74.5504L75.0624 78.056L75.5744 78.248L76.0224 78.568L76.3424 79.016L76.5344 79.528L76.6624 80.104L76.5344 80.68L76.3424 81.128L76.0224 81.576L75.5744 81.896L75.0624 82.152L74.5504 82.216Z" fill="white"/>
       </svg>
     </span>
-    <h1 class="nom">ad<b>a</b><span class="uscore">_</span>loom<small>travail du design &#183; design du travail</small></h1>
+    <h1 class="nom">ad<b>a</b><span class="uscore">_</span>loom</h1>
+    <p class="tag"><span>travail du design &#183;</span><span>design du travail</span></p>
   </div>
 
   <!-- liens de coin, volontairement discrets -->
