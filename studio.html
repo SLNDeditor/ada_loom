@@ -108,9 +108,10 @@
   .pastille{width:48px;height:auto;flex:0 0 auto;display:block}
   .pastille svg{display:block;width:100%;height:auto}
   .brand .name{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:20px;letter-spacing:.02em}
-  .brand .name b{color:var(--magenta)}
+  .brand .name b,
+  .brand .name .uscore{color:var(--magenta)}
   .top nav{display:flex;gap:clamp(12px,2.2vw,24px);flex-wrap:wrap;justify-content:flex-end}
-  .top nav a{color:var(--grey);font-size:16px;transition:color .2s}
+  .top nav a{color:var(--grey);font-size:16px;transition:color .2s;text-transform:capitalize}
   .top nav a:hover{color:var(--jaune)}
   .top nav a[aria-current="page"]{color:var(--jaune)}
 
@@ -235,6 +236,8 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     font-size:15px;color:var(--grey);
   }
+  /* meme traitement que le menu du header : les libelles portent la majuscule */
+  footer nav a,footer span a{text-transform:capitalize}
   footer a:hover{color:var(--jaune)}
 
   /* ---- apparition au défilement, discrète ---- */

@@ -3,5 +3,6 @@ Allow: /
 Disallow: /la_voir/
 Disallow: /recrutement.html
 Disallow: /plandacquisition.html
+Disallow: /guide-7-taches.html
 
 Sitemap: https://adaloom.studio/sitemap.xml

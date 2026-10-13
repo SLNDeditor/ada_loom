@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7 tâches à automatiser — guide gratuit · ada_loom</title>
+<meta name="description" content="Guide gratuit du studio ada_loom : sept tâches qu'une PME ou un artisan répète chaque semaine, et qu'un petit outil sur-mesure peut faire à sa place. Avec une estimation du temps gagné.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://adaloom.studio/guide-7-taches.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ground:#f1eee4;
+    --surface:#faf8f2;
+    --surface-2:#eae6d8;
+    --ink:#1a1244;
+    --ink-soft:#514a77;
+    --ink-faint:#8b85a6;
+    --accent:#d4007e;
+    --accent-ink:#ffffff;
+    --gold:#9a7008;
+    --rule:rgba(26,18,68,.16);
+    --rule-soft:rgba(26,18,68,.09);
+    --measure:64ch;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#100b2b;--surface:#181040;--surface-2:#20164f;
+      --ink:#f2efe6;--ink-soft:#b3ace0;--ink-faint:#7a739e;
+      --accent:#ff4da8;--accent-ink:#1a0f2e;--gold:#ffd23d;
+      --rule:rgba(242,239,230,.18);--rule-soft:rgba(242,239,230,.10);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#100b2b;--surface:#181040;--surface-2:#20164f;
+    --ink:#f2efe6;--ink-soft:#b3ace0;--ink-faint:#7a739e;
+    --accent:#ff4da8;--accent-ink:#1a0f2e;--gold:#ffd23d;
+    --rule:rgba(242,239,230,.18);--rule-soft:rgba(242,239,230,.10);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-optical-sizing:auto;
+    font-size:clamp(1.02rem,.97rem + .25vw,1.16rem);line-height:1.66;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:var(--accent-ink)}
+  .page{max-width:44rem;margin:0 auto;padding:clamp(1.5rem,5vw,4rem) clamp(1.2rem,5vw,3.25rem) 5rem}
+
+  .brand{
+    display:flex;align-items:center;gap:.6rem;
+    font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.92rem;
+    padding-bottom:1.6rem;border-bottom:1px solid var(--rule);margin-bottom:2.5rem;
+  }
+  .dot{width:1.6rem;height:1.6rem;border-radius:50%;background:var(--accent);
+    color:var(--accent-ink);display:grid;place-items:center;font-size:.95rem;flex:none}
+  .brand .uscore{color:var(--accent)}
+  .brand .sep{color:var(--ink-faint);font-weight:400}
+  .brand .tag{color:var(--ink-faint);font-weight:400;font-size:.82rem}
+
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;text-transform:uppercase;
+    letter-spacing:.18em;font-size:.7rem;color:var(--accent);margin:0 0 1rem;
+  }
+  h1{
+    font-family:"Fraunces",Georgia,serif;font-weight:600;font-optical-sizing:auto;
+    font-size:clamp(2rem,1.5rem + 2.4vw,3.1rem);line-height:1.05;letter-spacing:-.017em;
+    text-wrap:balance;margin:0 0 1.1rem;
+  }
+  .sub{font-size:clamp(1.1rem,1rem + .5vw,1.3rem);color:var(--ink-soft);max-width:40ch;margin:0 0 2.2rem}
+
+  h2{
+    font-family:"Fraunces",Georgia,serif;font-weight:600;
+    font-size:clamp(1.35rem,1.15rem + 1vw,1.9rem);line-height:1.12;letter-spacing:-.012em;
+    text-wrap:balance;margin:2.8rem 0 .9rem;
+  }
+  p{max-width:var(--measure);margin:.9rem 0}
+  strong{font-weight:600}
+  em{font-style:italic}
+  a{color:var(--accent);text-underline-offset:2px}
+
+  .intro p:first-of-type{font-size:1.08em}
+
+  .tasks{counter-reset:task;margin:2.5rem 0 0;padding:0;list-style:none}
+  .task{
+    counter-increment:task;
+    border-top:2px solid var(--ink);
+    padding:1.5rem 0 1.7rem;
+    page-break-inside:avoid;
+  }
+  .task-head{display:grid;grid-template-columns:2.6rem 1fr;gap:1rem;align-items:baseline}
+  .task-head::before{
+    content:counter(task,decimal-leading-zero);
+    font-family:"JetBrains Mono",monospace;font-weight:700;font-size:1rem;color:var(--accent);
+  }
+  .task-head h3{
+    font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.15rem,1.05rem + .5vw,1.4rem);
+    line-height:1.15;letter-spacing:-.01em;margin:0;
+  }
+  .task-body{margin-left:3.6rem}
+  @media (max-width:520px){.task-body{margin-left:0}}
+  .task-body p{margin:.7rem 0}
+  .task .label{
+    font-family:"JetBrains Mono",monospace;font-size:.68rem;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--ink-faint);display:block;margin-bottom:.15rem;
+  }
+  .task .fix{border-left:3px solid var(--accent);padding-left:1rem;margin:.9rem 0}
+  .gain{
+    display:inline-flex;align-items:center;gap:.5rem;margin-top:.6rem;
+    font-family:"JetBrains Mono",monospace;font-size:.8rem;font-weight:700;
+    color:var(--gold);
+  }
+  .gain::before{content:"≈";font-size:1.1em;color:var(--accent)}
+
+  .box{
+    background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+    padding:clamp(1.2rem,3vw,1.8rem);margin:2.5rem 0;max-width:var(--measure);
+    page-break-inside:avoid;
+  }
+  .box > :first-child{margin-top:0}
+  .box > :last-child{margin-bottom:0}
+  .box h2{margin-top:0}
+  .check{list-style:none;padding:0;margin:1rem 0}
+  .check li{padding-left:1.8rem;position:relative;margin:.6rem 0}
+  .check li::before{
+    content:"";position:absolute;left:0;top:.35em;width:1rem;height:1rem;
+    border:1.5px solid var(--accent);border-radius:2px;
+  }
+
+  .cta{
+    margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.8rem;
+    page-break-inside:avoid;
+  }
+  .cta h2{margin-top:0}
+  .cta .btn{
+    display:inline-block;margin-top:.6rem;
+    background:var(--accent);color:var(--accent-ink);
+    font-family:"JetBrains Mono",monospace;font-weight:700;font-size:.85rem;
+    letter-spacing:.02em;text-decoration:none;
+    padding:.85rem 1.4rem;border-radius:3px;
+  }
+  .contact{
+    font-family:"JetBrains Mono",monospace;font-size:.8rem;line-height:1.9;
+    color:var(--ink-soft);margin-top:1.4rem;
+  }
+
+  footer{
+    margin-top:3.5rem;padding-top:1.3rem;border-top:1px solid var(--rule);
+    font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--ink-faint);line-height:1.7;
+  }
+
+  @media print{
+    :root{--ground:#fff;--surface:#f5f3ec}
+    body{font-size:10.5pt;line-height:1.5}
+    .page{max-width:none;padding:0}
+    .task-head h3,h1,h2{color:#000}
+    a{color:#000;text-decoration:underline}
+    .cta .btn{border:1px solid #000;color:#000;background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="brand">
+    <span class="dot">a</span>
+    <span>ada<span class="uscore">_</span>loom</span>
+    <span class="sep">&middot;</span>
+    <span class="tag">studio design &amp; outils num&eacute;riques &middot; Seine-et-Marne</span>
+  </div>
+
+  <p class="eyebrow">Guide gratuit — PME &amp; artisans</p>
+  <h1>7 t&acirc;ches que vous refaites chaque semaine — et qu'un outil peut faire &agrave; votre place</h1>
+  <p class="sub">Pas un logiciel de plus. Un petit outil sur-mesure, branch&eacute; sur vos donn&eacute;es, qui reprend le travail r&eacute;p&eacute;titif.</p>
+
+  <div class="intro">
+    <p>Le soir, apr&egrave;s le chantier ou la fermeture, il reste le devis &agrave; taper, la relance &agrave; envoyer, le planning &agrave; mettre &agrave; jour. Ces t&acirc;ches ne rapportent rien en elles-m&ecirc;mes — mais si on ne les fait pas, on perd des affaires.</p>
+    <p>La plupart se ressemblent d'une PME &agrave; l'autre : on saisit deux fois la m&ecirc;me information, on recopie depuis un vieux mod&egrave;le, on relance &laquo; quand on y pense &raquo;. C'est exactement ce qu'un outil simple sait faire tourner tout seul.</p>
+    <p>Voici les sept plus courantes. Pour chacune : le sympt&ocirc;me, ce qu'un outil sur-mesure change, et une estimation prudente du temps r&eacute;cup&eacute;r&eacute; chaque semaine.</p>
+  </div>
+
+  <ol class="tasks">
+
+    <li class="task">
+      <div class="task-head"><h3>Faire et suivre les devis</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> On refrappe les m&ecirc;mes lignes &agrave; chaque devis, la num&eacute;rotation est manuelle, et une fois envoy&eacute; le devis dispara&icirc;t dans la bo&icirc;te mail — impossible de dire lesquels sont en attente.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> Une biblioth&egrave;que de prestations et de tarifs : on assemble un devis en quelques clics, le PDF se g&eacute;n&egrave;re aux couleurs de l'entreprise, et chaque devis a un statut visible — brouillon, envoy&eacute;, relanc&eacute;, accept&eacute;, refus&eacute;.</p>
+        <span class="gain">2 &agrave; 4 h par semaine</span>
+      </div>
+    </li>
+
+    <li class="task">
+      <div class="task-head"><h3>Relancer les devis et les factures</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> Les relances se font au feeling, souvent trop tard. Les impay&eacute;s s'accumulent et personne n'a la liste &agrave; jour des sommes en attente.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> D&egrave;s qu'un devis ou une facture d&eacute;passe le d&eacute;lai, une relance part automatiquement — courtoise, personnalis&eacute;e, avec le document en pi&egrave;ce jointe. Un tableau montre l'encours total en temps r&eacute;el.</p>
+        <span class="gain">1 &agrave; 2 h par semaine + tr&eacute;sorerie</span>
+      </div>
+    </li>
+
+    <li class="task">
+      <div class="task-head"><h3>Prendre les rendez-vous et planifier les interventions</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> Des allers-retours par t&eacute;l&eacute;phone et SMS pour caler une date, un agenda que l'&eacute;quipe ne voit pas, et des rendez-vous oubli&eacute;s faute de rappel.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> Une page de r&eacute;servation o&ugrave; le client choisit un cr&eacute;neau r&eacute;ellement disponible ; l'intervention appara&icirc;t dans un calendrier partag&eacute; par toute l'&eacute;quipe ; un rappel automatique part la veille.</p>
+        <span class="gain">2 &agrave; 3 h par semaine + moins de lapins</span>
+      </div>
+    </li>
+
+    <li class="task">
+      <div class="task-head"><h3>Tenir le fichier clients &agrave; jour</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> Les coordonn&eacute;es sont &eacute;parpill&eacute;es entre le t&eacute;l&eacute;phone, un carnet et trois fichiers. Aucun historique : impossible de retrouver ce qu'on a fait pour ce client il y a deux ans.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> Une fiche par client qui rassemble coordonn&eacute;es, adresses de chantier, devis, factures et &eacute;changes. On tape un nom, on a tout l'historique.</p>
+        <span class="gain">Recherche instantan&eacute;e, plus de doublons</span>
+      </div>
+    </li>
+
+    <li class="task">
+      <div class="task-head"><h3>Suivre l'avancement des chantiers et des commandes</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> Un tableau blanc &agrave; l'atelier, ou un tableur partag&eacute; que plus personne ne met &agrave; jour. On passe des coups de fil juste pour savoir o&ugrave; en est un dossier.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> Un tableau simple, par colonnes (&agrave; planifier, en cours, &agrave; facturer, termin&eacute;), avec une checklist d'&eacute;tapes et des photos par chantier. Visible par tous, sur mobile comme sur ordinateur.</p>
+        <span class="gain">Moins de r&eacute;unions et d'appels de coordination</span>
+      </div>
+    </li>
+
+    <li class="task">
+      <div class="task-head"><h3>Rassembler les infos et les photos de chantier</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> Les photos sont sur trois t&eacute;l&eacute;phones diff&eacute;rents, les notes sur des feuilles volantes. Au moment de facturer ou de traiter un SAV, on cherche.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> Un formulaire mobile : une photo, une note, la date — et tout se range automatiquement dans la fiche du chantier concern&eacute;. Le dossier est pr&ecirc;t quand on en a besoin.</p>
+        <span class="gain">Dossiers complets, facturation plus rapide</span>
+      </div>
+    </li>
+
+    <li class="task">
+      <div class="task-head"><h3>Produire les documents qui reviennent</h3></div>
+      <div class="task-body">
+        <p><span class="label">Le sympt&ocirc;me</span> Attestations, bons de commande fournisseurs, comptes rendus : on repart d'un vieux mod&egrave;le Word, on remplace les noms &agrave; la main, on oublie une ligne.</p>
+        <p class="fix"><span class="label">Ce qu'un outil change</span> Les documents se g&eacute;n&egrave;rent depuis un gabarit, avec les informations d&eacute;j&agrave; saisies ailleurs (client, chantier, montants). Il ne reste qu'&agrave; v&eacute;rifier et envoyer.</p>
+        <span class="gain">1 &agrave; 2 h par semaine, z&eacute;ro faute de recopie</span>
+      </div>
+    </li>
+
+  </ol>
+
+  <div class="box">
+    <h2>Est-ce rentable pour vous ?</h2>
+    <p>Trois questions. Si vous r&eacute;pondez oui &agrave; deux d'entre elles, un outil sur-mesure se rembourse vite.</p>
+    <ul class="check">
+      <li>Est-ce que quelqu'un, dans l'entreprise, passe plus de 3 h par semaine &agrave; des t&acirc;ches administratives r&eacute;p&eacute;titives ?</li>
+      <li>Avez-vous d&eacute;j&agrave; perdu une affaire, ou &eacute;t&eacute; pay&eacute; en retard, &agrave; cause d'une relance oubli&eacute;e ?</li>
+      <li>Est-ce qu'une information importante (un prix, une adresse, un statut) est saisie &agrave; plus d'un endroit ?</li>
+    </ul>
+  </div>
+
+  <h2>Par o&ugrave; commencer</h2>
+  <p>On ne remplace pas tout d'un coup. On choisit <strong>une seule</strong> de ces t&acirc;ches — celle qui p&egrave;se le plus — et on construit l'outil qui la r&egrave;gle. Comptez deux &agrave; trois semaines entre le cadrage et la mise en ligne. Le budget est fix&eacute; &agrave; l'avance, selon le p&eacute;rim&egrave;tre, sans surprise.</p>
+  <p>Ensuite, si l'outil tient ses promesses, on en ajoute une deuxi&egrave;me.</p>
+
+  <div class="cta">
+    <h2>Un diagnostic gratuit pour y voir clair</h2>
+    <p>45 minutes, sur place ou en visio. On regarde ensemble votre semaine type, on rep&egrave;re les t&acirc;ches qu'un outil pourrait vous enlever, et vous repartez avec une page de recommandations chiffr&eacute;es — sans engagement.</p>
+    <a class="btn" href="mailto:lm@adaloom.studio?subject=Diagnostic%2045%20min%20-%20apr%C3%A8s%20le%20guide%207%20t%C3%A2ches">R&eacute;server le diagnostic &rarr;</a>
+    <div class="contact">
+      Laurent Marissal — studio ada_loom<br>
+      lm@adaloom.studio &middot; 07 82 19 05 77<br>
+      La Celle-sur-Morin (77) — Seine-et-Marne &amp; est francilien, visio partout
+    </div>
+  </div>
+
+  <footer>
+    ada_loom — Laurent Marissal &middot; adaloom.studio &middot; document gratuit, librement partageable<br>
+    Les estimations de temps sont des ordres de grandeur observ&eacute;s sur des PME de 3 &agrave; 20 personnes ; votre situation peut varier.
+  </footer>
+
+</div>
+
+</body>
+</html>

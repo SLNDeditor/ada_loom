@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7 tâches à automatiser dans votre PME — ada_loom</title>
+<meta name="description" content="Guide gratuit : identifiez en 10 minutes les 7 tâches répétitives que votre PME peut automatiser pour gagner du temps chaque semaine. Par ada_loom, studio en Seine-et-Marne.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://adaloom.studio/guide-pme.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Guide gratuit — 7 tâches à automatiser dans votre PME">
+<meta property="og:description" content="Identifiez les tâches répétitives que vous pouvez automatiser pour gagner du temps chaque semaine.">
+<meta property="og:url" content="https://adaloom.studio/guide-pme.html">
+<meta property="og:image" content="https://adaloom.studio/cover.png">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="ada_loom — Laurent Marissal">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guide gratuit — 7 tâches à automatiser dans votre PME">
+<meta name="twitter:description" content="Identifiez les tâches répétitives que vous pouvez automatiser pour gagner du temps chaque semaine.">
+<meta name="twitter:image" content="https://adaloom.studio/cover.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "7 tâches à automatiser dans votre PME",
+  "description": "Guide gratuit pour identifier les tâches répétitives que chaque PME peut automatiser pour gagner du temps chaque semaine.",
+  "author": {
+    "@type": "Person",
+    "name": "Laurent Marissal",
+    "url": "https://adaloom.studio/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ada_loom",
+    "url": "https://adaloom.studio/"
+  },
+  "isAccessibleForFree": true,
+  "url": "https://adaloom.studio/guide-pme.html"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  @font-face{
+    font-family:"Deimos";
+    src:url("font/Deimos-ExtraBold-Pro.otf") format("opentype");
+    font-weight:400 900;font-style:normal;font-display:swap;
+    unicode-range:U+0-2012,U+2015-2021,U+2023-2038,U+203B-218F,U+2200-25CE,U+25D0-2714,U+2716-10FFFF;
+  }
+
+  :root{
+    --violet:#1a1244;
+    --violet-deep:#120c33;
+    --magenta:#ec008c;
+    --jaune:#ffec00;
+    --paper:#f4f2ec;
+    --ink:#171226;
+    --grey:#8a86a0;
+    --line:rgba(244,242,236,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--violet);color:var(--paper);
+    font-family:"Deimos","JetBrains Mono",monospace;
+    font-size:20px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .uscore{position:relative;top:1.5pt}
+
+  /* ---- header ---- */
+  .top{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px clamp(20px,5vw,64px);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:50;
+    background:rgba(18,12,51,.82);backdrop-filter:blur(10px);
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .pastille{width:60px;height:auto;flex:0 0 auto;display:block;cursor:pointer}
+  .pastille svg{display:block;width:100%;height:auto}
+  .brand .name{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:23px;letter-spacing:.02em}
+  .brand .name b,
+  .brand .name .uscore{color:var(--magenta)}
+  .brand .name small{display:block;font-family:"Deimos","JetBrains Mono",monospace;color:var(--grey);font-weight:800;font-size:17px;letter-spacing:.02em}
+  .top nav{display:flex;gap:25px}
+  .top nav a{color:var(--grey);font-size:18px;transition:color .2s;text-transform:capitalize}
+  .top nav a:hover{color:var(--jaune)}
+
+  /* ---- hero ---- */
+  .hero{
+    padding:clamp(48px,9vh,100px) clamp(20px,5vw,64px);
+    background:var(--violet-deep);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;
+    gap:clamp(36px,6vw,80px);align-items:start;
+  }
+  .hero .eyebrow{font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:12px}
+  .hero h1{
+    font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
+    font-size:clamp(24px,4vw,34px);line-height:1.1;letter-spacing:-.01em;
+    margin-bottom:clamp(16px,3vh,24px);
+  }
+  .hero .lead{
+    font-family:"Fraunces",serif;font-weight:400;
+    font-size:clamp(18px,2vw,21px);line-height:1.5;
+    color:#cbc8db;max-width:48ch;margin-bottom:24px;
+  }
+  .hero .lead em{font-style:italic;color:var(--jaune)}
+
+  /* ---- form card ---- */
+  .form-card{
+    background:rgba(244,242,236,.04);border:1px solid var(--line);
+    border-radius:3px;padding:clamp(24px,4vw,36px);
+  }
+  .form-card h2{
+    font-family:"Fraunces",serif;font-weight:600;
+    font-size:clamp(19px,2.4vw,22px);line-height:1.15;
+    color:var(--jaune);margin-bottom:6px;
+  }
+  .form-card .sub{color:var(--grey);font-size:16px;margin-bottom:20px}
+  .form-card label{display:block;font-size:15px;color:var(--grey);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;font-weight:500}
+  .form-card input[type="email"],
+  .form-card input[type="text"]{
+    display:block;width:100%;padding:13px 16px;margin-bottom:16px;
+    font-family:inherit;font-size:17px;color:var(--paper);
+    background:rgba(244,242,236,.06);border:1px solid var(--line);border-radius:2px;
+    outline:none;transition:border-color .2s;
+  }
+  .form-card input:focus{border-color:var(--magenta)}
+  .form-card input::placeholder{color:var(--grey);opacity:.6}
+  .form-card .btn{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;cursor:pointer;
+    padding:15px 26px;font-family:inherit;font-weight:500;font-size:19px;color:var(--paper);
+    background:var(--magenta);border:1px solid var(--magenta);border-radius:2px;
+    transition:transform .15s,background .2s,color .2s;
+  }
+  .form-card .btn:hover{background:var(--jaune);border-color:var(--jaune);color:var(--ink);transform:translateY(-2px)}
+  .form-card .legal{font-size:14px;color:var(--grey);margin-top:14px;line-height:1.5}
+
+  /* ---- merci (post-submit) ---- */
+  .merci{text-align:center;padding:20px 0}
+  .merci .check{font-size:48px;margin-bottom:16px}
+  .merci h2{font-family:"Fraunces",serif;font-weight:600;font-size:22px;color:var(--jaune);margin-bottom:12px}
+  .merci p{color:#cbc8db;font-size:17px;margin-bottom:20px;line-height:1.5}
+  .merci .btn-dl{
+    display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+    padding:15px 26px;font-family:inherit;font-weight:500;font-size:19px;color:var(--paper);
+    background:var(--magenta);border:1px solid var(--magenta);border-radius:2px;
+    transition:transform .15s,background .2s,color .2s;text-decoration:none;
+  }
+  .merci .btn-dl:hover{background:var(--jaune);border-color:var(--jaune);color:var(--ink);transform:translateY(-2px)}
+  .merci .next{margin-top:24px;font-size:16px;color:var(--grey)}
+  .merci .next a{color:var(--paper);transition:color .2s}
+  .merci .next a:hover{color:var(--jaune)}
+
+  /* ---- inside : contenu du guide ---- */
+  .inside{
+    padding:clamp(48px,9vh,100px) clamp(20px,5vw,64px);
+    background:var(--violet);border-top:1px solid var(--line);
+  }
+  .inside .eyebrow{font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:12px}
+  .inside h2{
+    font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
+    font-size:clamp(22px,3.5vw,28px);line-height:1.1;letter-spacing:-.01em;
+    margin-bottom:clamp(28px,5vh,44px);
+  }
+  .inside-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+  }
+  .inside-item{
+    background:rgba(244,242,236,.03);border:1px solid var(--line);
+    border-radius:3px;padding:24px;transition:border-color .2s,transform .2s;
+  }
+  .inside-item:hover{border-color:rgba(244,242,236,.4);transform:translateY(-3px)}
+  .inside-item .num{font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--magenta)}
+  .inside-item h3{
+    font-family:"Fraunces",serif;font-weight:600;
+    font-size:clamp(17px,2vw,19px);line-height:1.2;
+    color:var(--jaune);margin:8px 0 10px;
+  }
+  .inside-item p{color:#cbc8db;font-size:16px;line-height:1.55}
+
+  /* ---- cta-band (bottom) ---- */
+  .cta-band{
+    padding:clamp(40px,7vh,72px) clamp(20px,5vw,64px);
+    background:linear-gradient(135deg,rgba(236,0,140,.06),rgba(255,236,0,.03));
+    border-top:1px solid var(--magenta);
+    text-align:center;
+  }
+  .cta-band h2{
+    font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
+    font-size:clamp(22px,3.5vw,28px);line-height:1.1;letter-spacing:-.01em;
+    margin-bottom:12px;
+  }
+  .cta-band h2 em{font-style:normal;color:var(--magenta)}
+  .cta-band p{color:#cbc8db;font-size:clamp(17px,1.5vw,19px);line-height:1.6;max-width:52ch;margin:0 auto 24px}
+  .cta-band .btn{
+    display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+    padding:15px 30px;font-family:inherit;font-weight:500;font-size:19px;color:var(--paper);
+    background:var(--magenta);border:1px solid var(--magenta);border-radius:2px;
+    transition:transform .15s,background .2s,color .2s;text-decoration:none;
+  }
+  .cta-band .btn:hover{background:var(--jaune);border-color:var(--jaune);color:var(--ink);transform:translateY(-2px)}
+  .cta-band .alt{display:block;margin-top:16px;font-size:16px;color:var(--grey)}
+  .cta-band .alt a{color:var(--paper);transition:color .2s}
+  .cta-band .alt a:hover{color:var(--jaune)}
+
+  /* ---- footer ---- */
+  footer{padding:26px clamp(20px,5vw,64px);border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:17px;color:var(--grey)}
+
+  @media(max-width:760px){
+    .hero-grid{grid-template-columns:1fr;gap:28px}
+    .brand .name{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <a class="pastille" href="index.html" aria-label="ada_loom — retour à l'accueil">
+      <svg viewBox="0 0 106 119" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+        <circle cx="53" cy="66" r="53" fill="#EC008C"/>
+        <path d="M40.6978 66.2345V61.1785V60.7305L40.6338 60.2825L40.5698 59.8985L40.4418 59.4505L40.3138 59.0665L40.1218 58.7465L39.9298 58.3625L39.7378 58.0425L39.4818 57.7225L39.2258 57.4025L38.9698 57.0825L38.6498 56.8265L38.3298 56.6345L38.0098 56.3785L37.6258 56.1865L37.2418 56.0585L36.8578 55.8665L36.4738 55.8025L36.0258 55.6745H35.6418L35.1938 55.6105L34.7458 55.6745H34.3618L33.9138 55.8025L33.5298 55.8665L33.1458 56.0585L32.7618 56.1865L32.4418 56.3785L32.0578 56.6345L31.7378 56.8265L31.4818 57.0825L31.1618 57.4025L30.9058 57.7225L30.6498 58.0425L30.4578 58.3625L30.2658 58.7465L30.0738 59.0665L29.9458 59.4505L29.8178 59.8985L29.7538 60.2825L29.6898 60.7305V61.1785V66.2345V66.6825L29.7538 67.0665L29.8178 67.5145L29.9458 67.8985L30.0738 68.2825L30.2658 68.6665L30.4578 68.9865L30.6498 69.3705L30.9058 69.6905L31.1618 69.9465L31.4818 70.2665L31.7378 70.5225L32.0578 70.7785L32.4418 70.9705L32.7618 71.1625L33.1458 71.3545L33.5298 71.4825L33.9138 71.6105L34.3618 71.6745L34.7458 71.7385H35.1938H35.6418L36.0258 71.6745L36.4738 71.6105L36.8578 71.4825L37.2418 71.3545L37.6258 71.1625L38.0098 70.9705L38.3298 70.7785L38.6498 70.5225L38.9698 70.2665L39.2258 69.9465L39.4818 69.6905L39.7378 69.3705L39.9298 68.9865L40.1218 68.6665L40.3138 68.2825L40.4418 67.8985L40.5698 67.5145L40.6338 67.0665L40.6978 66.6825V66.2345ZM47.9298 71.7385L48.4418 71.8025L48.9538 71.9945L49.4018 72.3785L49.7218 72.7625L49.9778 73.2745L50.0418 73.8505L49.9778 74.4265L49.7218 74.9385L49.4018 75.3225L48.9538 75.7065L48.4418 75.8985L47.9298 75.9625H42.8098L42.2978 75.8985L41.7858 75.7065L41.3378 75.3225L41.0178 74.9385L40.7618 74.4265L40.6978 73.9145V74.3625L41.5298 73.5945L41.1458 73.9785L40.6978 74.2345L40.2498 74.5545L39.8018 74.8105L39.3538 75.0025L38.8418 75.2585L38.3938 75.4505L37.8818 75.5785L37.3698 75.7065L36.8578 75.8345L36.2818 75.8985L35.7698 75.9625H35.1938H34.6818L34.1698 75.8985L33.6578 75.8345L33.1458 75.7065L32.6338 75.6425L32.1218 75.4505L31.6738 75.3225L31.1618 75.0665L30.7138 74.8745L30.2658 74.6185L29.8818 74.3625L29.4338 74.1065L29.0498 73.7865L28.6658 73.4665L28.3458 73.0825L27.9618 72.7625L27.6418 72.3785L27.3218 71.9945L27.0658 71.5465L26.8098 71.1625L26.5538 70.7145L26.3618 70.2665L26.1058 69.7545L25.9778 69.3065L25.7858 68.7945L25.7218 68.2825L25.5938 67.7705L25.5298 67.2585L25.4658 66.7465V66.2345V61.1145V60.6025L25.5298 60.0905L25.5938 59.5785L25.7218 59.0665L25.7858 58.5545L25.9778 58.0425L26.1058 57.5945L26.3618 57.1465L26.5538 56.6985L26.8098 56.2505L27.0658 55.8025L27.3218 55.4185L27.6418 54.9705L27.9618 54.5865L28.3458 54.2665L28.6658 53.8825L29.0498 53.5625L29.4338 53.3065L29.8818 52.9865L30.2658 52.7305L30.7138 52.4745L31.1618 52.2825L31.6738 52.0905L32.1218 51.8985L32.6338 51.7705L33.1458 51.6425L33.6578 51.5145L34.1698 51.4505L34.6818 51.3865H35.1938H35.7698L36.2818 51.4505L36.8578 51.5145L37.3698 51.6425L37.8818 51.7705L38.3938 51.9625L38.8418 52.0905L39.3538 52.3465L39.8018 52.5385L40.2498 52.8585L40.6978 53.1145L41.1458 53.4345L41.5298 53.7545L40.6978 52.9865V53.4985L40.7618 52.9865L41.0178 52.4745L41.3378 52.0265L41.7858 51.7065L42.2978 51.4505L42.8098 51.3865L43.3858 51.4505L43.8978 51.7065L44.3458 52.0265L44.6658 52.4745L44.8578 52.9865L44.9218 53.4985V71.7385H47.9298Z" fill="white"/>
+        <path d="M74.5504 82.216H54.1344L53.6224 82.152L53.1104 81.896L52.6624 81.576L52.3424 81.128L52.1504 80.68L52.0864 80.104L52.1504 79.528L52.3424 79.016L52.6624 78.568L53.1104 78.248L53.6224 78.056L54.1344 77.992H74.5504L75.0624 78.056L75.5744 78.248L76.0224 78.568L76.3424 79.016L76.5344 79.528L76.6624 80.104L76.5344 80.68L76.3424 81.128L76.0224 81.576L75.5744 81.896L75.0624 82.152L74.5504 82.216Z" fill="white"/>
+      </svg>
+    </a>
+    <span class="name">ad<b>a</b><span class="uscore">_</span>loom<small>Laurent Marissal</small></span>
+  </div>
+  <nav><a href="index.html">accueil</a><a href="face-a.html">Face A</a><a href="face-b.html">Face B</a><a href="portfolio.html">book</a><a href="studio.html">studio</a><a href="studio.html#contact">contact</a></nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-txt">
+      <div class="eyebrow">guide gratuit</div>
+      <h1>7 tâches à automatiser dans votre PME</h1>
+      <p class="lead">Identifiez en 10 minutes les tâches répétitives qui vous coûtent du temps chaque semaine — et les outils simples pour les régler. <em>Un guide concret, sans jargon technique.</em></p>
+    </div>
+    <div class="form-card" id="formBox">
+      <h2>Recevez le guide</h2>
+      <p class="sub">PDF gratuit, envoyé par email</p>
+      <form id="guideForm" novalidate>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" autocomplete="given-name">
+        <label for="email">Email <span style="color:var(--magenta)">*</span></label>
+        <input type="email" id="email" name="email" placeholder="vous@entreprise.fr" required autocomplete="email">
+        <button class="btn" type="submit">Recevoir le guide &#8594;</button>
+      </form>
+      <p class="legal">Aucun spam. Un email avec le guide, puis des conseils pratiques. Désinscription en un clic.</p>
+    </div>
+    <!-- état post-soumission -->
+    <div class="form-card merci" id="merci" hidden>
+      <div class="check">&#10003;</div>
+      <h2>Votre guide est prêt</h2>
+      <p>Bonne lecture — et n'hésitez pas à revenir vers nous pour un diagnostic gratuit.</p>
+      <a class="btn-dl" href="guide-7-taches.pdf" target="_blank" rel="noopener">Télécharger le guide (PDF) &#8595;</a>
+      <p class="next">Prochaine étape : <a href="mailto:lm@adaloom.studio?subject=Diagnostic%2045%20min">réserver un diagnostic 45 min, gratuit</a> ou <a href="prestations.html">voir les prestations</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="inside">
+  <div class="eyebrow">dans le guide</div>
+  <h2>Sept tâches concrètes, sept gains immédiats</h2>
+  <div class="inside-grid">
+    <div class="inside-item">
+      <span class="num">01</span>
+      <h3>Les relances clients</h3>
+      <p>Devis envoyé lundi, relance mercredi, rappel vendredi — sans y penser.</p>
+    </div>
+    <div class="inside-item">
+      <span class="num">02</span>
+      <h3>La prise de rendez-vous</h3>
+      <p>Un lien de réservation au lieu de cinq emails pour trouver un créneau.</p>
+    </div>
+    <div class="inside-item">
+      <span class="num">03</span>
+      <h3>Les devis et factures</h3>
+      <p>Un formulaire qui génère le PDF, l'envoie et le classe — en un clic.</p>
+    </div>
+    <div class="inside-item">
+      <span class="num">04</span>
+      <h3>Le suivi de commandes</h3>
+      <p>Un tableau qui se met à jour tout seul et prévient quand ça bloque.</p>
+    </div>
+    <div class="inside-item">
+      <span class="num">05</span>
+      <h3>L'envoi de documents</h3>
+      <p>Contrats, attestations, confirmations : générés et envoyés automatiquement.</p>
+    </div>
+    <div class="inside-item">
+      <span class="num">06</span>
+      <h3>Les rappels d'échéances</h3>
+      <p>Renouvellements, anniversaires, fin de garantie : un rappel arrive au bon moment.</p>
+    </div>
+    <div class="inside-item">
+      <span class="num">07</span>
+      <h3>Le bilan mensuel</h3>
+      <p>Un récapitulatif qui s'écrit tout seul chaque fin de mois — prêt à envoyer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Prêt à gagner du <em>temps</em> ?</h2>
+  <p>Le guide est gratuit, concret, et pensé pour les PME et artisans qui n'ont pas de service informatique.</p>
+  <a class="btn" href="#top" onclick="document.getElementById('email').focus()">Recevoir le guide &#8594;</a>
+  <span class="alt">ou directement : <a href="mailto:lm@adaloom.studio?subject=Diagnostic%2045%20min">réserver un diagnostic 45 min, gratuit</a></span>
+</section>
+
+<footer>
+  <span>ada<span class="uscore">_</span>loom — Laurent Marissal · La Celle-sur-Morin (77)</span>
+  <span>identité visuelle · édition · sites internet &amp; applications métier sur-mesure</span>
+</footer>
+
+<script>
+  /*
+    ─── INTÉGRATION BREVO / MAKE ───────────────────────────────────────
+    Pour activer la capture d'emails :
+    1. Créer un scénario Make.com avec un déclencheur « Custom webhook »
+    2. Copier l'URL du webhook et la coller ci-dessous dans WEBHOOK_URL
+    3. Dans le scénario Make : ajouter un module Brevo « Create/update a contact »
+       → email = {{email}}, prénom = {{prenom}}, liste = « Guide PME »
+    4. Ajouter un module Brevo « Send a transactional email »
+       → template = le guide en PDF, destinataire = {{email}}
+    5. Activer le scénario
+
+    Alternative : coller directement le code embed d'un formulaire Brevo
+    dans le <div id="formBox"> à la place du <form> actuel.
+    ─────────────────────────────────────────────────────────────────── */
+  var WEBHOOK_URL = 'https://hook.eu1.make.com/b1lnwu63lwrvvc2f4sqk12wfvuplr5uc';
+
+  var form = document.getElementById('guideForm');
+  var formBox = document.getElementById('formBox');
+  var merci = document.getElementById('merci');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('[name="email"]').value.trim();
+    var prenom = form.querySelector('[name="prenom"]').value.trim();
+
+    if (!email || !email.includes('@')) {
+      form.querySelector('[name="email"]').focus();
+      return;
+    }
+
+    if (WEBHOOK_URL) {
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: email, prenom: prenom, source: 'guide-pme', date: new Date().toISOString()})
+      }).catch(function(){});
+    }
+
+    try { localStorage.setItem('adaloom_guide_lead', JSON.stringify({email: email, prenom: prenom, date: new Date().toISOString()})); } catch(ex) {}
+
+    formBox.hidden = true;
+    merci.hidden = false;
+  });
+</script>
+
+</body>
+</html>

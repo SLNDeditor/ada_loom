@@ -13,3 +13,16 @@ font/*
 
 # Instructions Claude Code (local, non publié)
 CLAUDE.md
+
+# Données de prospection : hors périmètre du site (voir ../../prospection_coulommiers)
+prospection_coulommiers/
+
+# Outillage local d'extraction de couverture (pdfjs + canvas) : jamais publié
+node_modules/
+package.json
+package-lock.json
+extract-cover.js
+extract-cover.html
+
+# Source HD du book illustration (47 Mo) : le site sert book_illustrateur-2.pdf
+book_illustrateur.pdf

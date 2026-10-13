@@ -64,7 +64,7 @@
     --grey:#8a86a0;
     /* diamètre du médaillon central, et dégagement que chaque face doit
        laisser du côté de la couture pour ne pas passer dessous */
-    --med:clamp(176px,21vw,290px);
+    --med:clamp(231px,21vw,290px);
     --degagement:calc(var(--med) / 2 + clamp(18px,2.6vw,42px));
   }
 
@@ -211,27 +211,81 @@
     text-align:center;padding:0 calc(var(--med) * .11);
     box-shadow:0 26px 64px -28px rgba(0,0,0,.8);
   }
-  /* pastille « a_ » en débord, comme sur le document imprimé */
+  /* pastille « a_ » : elle part de la position du document imprimé (en haut à
+     gauche, à 225°) et parcourt lentement la circonférence du médaillon.
+     translate(-50%,-50%) ramène la pastille sur le centre, rotate+translateX
+     l'envoie à la distance d'un rayon, et la rotation inverse de fin de chaîne
+     garde le « a_ » debout au lieu de le faire culbuter. */
   .medaillon .pastille{
-    position:absolute;top:-3%;left:-5%;
+    position:absolute;top:50%;left:50%;
     width:33%;height:auto;display:block;
+    animation:orbite 22s linear infinite;
+  }
+  @keyframes orbite{
+    from{transform:translate(-50%,-50%) rotate(225deg)  translateX(calc(var(--med) / 2)) rotate(-225deg)}
+    to  {transform:translate(-50%,-50%) rotate(585deg) translateX(calc(var(--med) / 2)) rotate(-585deg)}
   }
   .medaillon .pastille svg{display:block;width:100%;height:auto}
   .medaillon .nom,.medaillon .tag{width:100%}
   .medaillon .nom{
     font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
-    font-size:clamp(17px,2vw,26px);line-height:1.05;letter-spacing:.02em;
+    font-size:35px;line-height:1.05;letter-spacing:.02em;
     color:var(--violet);
   }
-  .medaillon .nom b{color:var(--magenta-deep)}
+  .medaillon .nom b,
+  .medaillon .nom .uscore{color:var(--magenta-deep)}
+  /* « studio » occupe sa propre ligne au-dessus de la signature */
+  .medaillon .nom .studio{display:block}
   .medaillon .tag{
     font-family:"Fraunces",serif;font-style:italic;font-weight:400;
-    font-size:clamp(9.5px,.95vw,12.5px);line-height:1.35;
+    font-size:18px;line-height:1.35;
     color:var(--violet);opacity:.78;margin-top:6px;
   }
   /* deux lignes insécables : dans un cercle, un retour à la ligne au milieu
      d'un mot est illisible — mieux vaut déborder visiblement si ça arrive */
   .medaillon .tag span{display:block;white-space:nowrap}
+
+
+  /* ---------- pastilles « Book » : une par face. Elles sont positionnees
+     DANS .face (qui est en position:relative), jamais dans la page : chacune
+     est donc enfermee dans sa moitie par construction et ne peut pas passer
+     sur le camp adverse. Posees dans le vide sous le bloc de texte, elles se
+     balancent doucement pour donner l'impression de flotter.
+     z-index 4 : au-dessus de la zone cliquable de la porte (z-index 1) et du
+     medaillon (3). Survol par filter, car transform appartient a
+     l'animation. ---------- */
+  .book-flottant{
+    position:absolute;z-index:4;
+    width:88px;height:88px;border-radius:50%;
+    display:grid;place-items:center;text-align:center;
+    background:#00ccff;color:var(--violet-deep);
+    font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
+    font-size:15px;letter-spacing:.02em;line-height:1.1;
+    box-shadow:0 14px 34px -12px rgba(0,0,0,.6);
+    animation:flotte 5.5s ease-in-out infinite;
+    transition:box-shadow .25s,filter .25s;
+  }
+  @keyframes flotte{
+    0%,100%{transform:translateY(-7px)}
+    50%    {transform:translateY(7px)}
+  }
+  .book-flottant:hover,.book-flottant:focus-visible{
+    filter:brightness(1.08);
+    box-shadow:0 20px 46px -12px rgba(0,0,0,.72);
+  }
+  /* chacune du cote exterieur de sa face, loin de la couture et du medaillon */
+  /* chacune du cote exterieur de sa face, pres de la marge : loin de la
+     couture, du medaillon et des liens de coin. */
+  .face--a .book-flottant{left:clamp(20px,4vw,56px);bottom:clamp(26px,6vh,64px)}
+  .face--b .book-flottant{right:clamp(20px,4vw,56px);bottom:clamp(26px,6vh,64px)}
+  /* en mobile les faces sont empilees et le medaillon occupe tout le milieu :
+     la pastille de la face A remonte dans le vide en haut a droite, celle de
+     la face B reste en bas a droite, sous son bloc de texte. */
+  @media(max-width:860px){
+    .book-flottant{width:64px;height:64px;font-size:12px}
+    .face--a .book-flottant{left:auto;right:16px;top:16px;bottom:auto}
+    .face--b .book-flottant{right:16px;bottom:auto;top:auto;bottom:16px}
+  }
 
   /* ---------- liens de coin, discrets ---------- */
   .coin{
@@ -295,7 +349,7 @@
   /* ---------- mobile : faces empilées, toujours groupées sous ada_loom ---------- */
   @media(max-width:860px){
     body{font-size:16px}
-    :root{--med:clamp(132px,34vw,160px);--degagement:calc(var(--med) / 2 + 12px)}
+    :root{--med:clamp(255px,70vw,290px);--degagement:calc(var(--med) / 2 + 12px)}
     /* faces empilées à parts égales : la couture tombe à 50 %, exactement là
        où le médiallon est centré */
     .seuil{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
@@ -304,15 +358,14 @@
     .face--a{padding-right:20px;padding-bottom:var(--degagement)}
     .face--b{padding-left:20px;padding-top:var(--degagement);padding-bottom:52px}
     .porte .ref{font-size:35px;margin-bottom:4px}
-    .porte,.mots,.entrer{max-width:none}
+    .porte,.entrer{max-width:none}
     .porte .ref{margin-bottom:6px}
     .porte .nom{font-size:clamp(26px,7.4vw,36px)}
     .porte .nom::after{margin-top:7px;height:2px}
     .porte .quoi{max-width:32ch;margin-top:8px;line-height:1.4}
-    .mots{margin-top:12px}
-    .mots li{line-height:1.34}
-    .mots a{font-size:13px}
-    .mots{font-size:13px}
+    /* la liste des mots-clefs tombe en mobile : l'entree se fait par la porte
+       entiere, et l'accueil retrouve sa tenue en un seul ecran */
+    .mots{display:none}
     .entrer{margin-top:12px}
     /* pas de recul de l'autre face au survol : sans objet au doigt */
     .seuil:has(.face--a .porte:hover) .face--b,
@@ -358,6 +411,8 @@
       <li><a href="face-a.html#formation">formation &amp; coaching</a></li>
     </ul>
     <p class="entrer" aria-hidden="true">entrer <span class="arr">&#8594;</span></p>
+    <!-- pastille vers le book de cette face -->
+    <a class="book-flottant" href="illustration.html#book" aria-label="Voir le book illustration">Book#A</a>
   </section>
 
   <section class="face face--b">
@@ -374,6 +429,8 @@
       <li><a href="face-b.html#conseil">conseil &amp; formation</a></li>
     </ul>
     <p class="entrer" aria-hidden="true">entrer <span class="arr">&#8594;</span></p>
+    <!-- pastille vers le book de cette face -->
+    <a class="book-flottant" href="portfolio.html#book" aria-label="Voir le book design et outils numeriques">Book#B</a>
   </section>
 
   <!-- médaillon : la signature, au centre, posée sur la couture des deux faces -->
@@ -385,8 +442,8 @@
         <path d="M74.5504 82.216H54.1344L53.6224 82.152L53.1104 81.896L52.6624 81.576L52.3424 81.128L52.1504 80.68L52.0864 80.104L52.1504 79.528L52.3424 79.016L52.6624 78.568L53.1104 78.248L53.6224 78.056L54.1344 77.992H74.5504L75.0624 78.056L75.5744 78.248L76.0224 78.568L76.3424 79.016L76.5344 79.528L76.6624 80.104L76.5344 80.68L76.3424 81.128L76.0224 81.576L75.5744 81.896L75.0624 82.152L74.5504 82.216Z" fill="white"/>
       </svg>
     </span>
-    <h1 class="nom">ad<b>a</b><span class="uscore">_</span>loom</h1>
-    <p class="tag"><span>travail du design &#183;</span><span>design du travail</span></p>
+    <h1 class="nom"><span class="studio">studio</span>ad<b>a</b><span class="uscore">_</span>loom</h1>
+    <p class="tag"><span>travail du design</span><span>design du travail</span></p>
   </div>
 
   <!-- liens de coin, volontairement discrets -->

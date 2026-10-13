@@ -115,9 +115,10 @@
   .pastille{width:48px;height:auto;flex:0 0 auto;display:block}
   .pastille svg{display:block;width:100%;height:auto}
   .brand .name{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:20px;letter-spacing:.02em}
-  .brand .name b{color:var(--magenta)}
+  .brand .name b,
+  .brand .name .uscore{color:var(--magenta)}
   .top nav{display:flex;gap:clamp(12px,2.2vw,24px);flex-wrap:wrap;justify-content:flex-end}
-  .top nav a{color:var(--grey);font-size:16px;transition:color .2s}
+  .top nav a{color:var(--grey);font-size:16px;transition:color .2s;text-transform:capitalize}
   .top nav a:hover{color:var(--jaune)}
   .top nav a[aria-current="page"]{color:var(--jaune)}
 
@@ -136,6 +137,25 @@
   }
   .hero .sous{color:#cbc8db;font-size:clamp(16px,1.5vw,19px);max-width:50ch;margin-top:18px}
   .hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+
+  /* Les mots-clefs de l'accueil : ils y disparaissent sous 860px, ils
+     reparaissent ici, sous l'accroche, pour garder l'acces direct aux ancres
+     de la page depuis un telephone. Masques au-dela : le detail des cartes
+     plus bas fait deja ce travail sur grand ecran. */
+  .hero .mots{display:none}
+  @media(max-width:860px){
+    .hero .mots{
+      display:block;list-style:none;
+      margin-top:24px;font-size:15px;
+    }
+    .hero .mots li{line-height:1.6;position:relative;padding-left:1.15em}
+    .hero .mots li::before{
+      content:"\25A0";position:absolute;left:0;top:0;
+      font-size:.62em;line-height:2.58;color:var(--magenta-clair);
+    }
+    .hero .mots a{color:rgba(244,242,236,.82);border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+    .hero .mots a:hover{color:var(--jaune);border-bottom-color:var(--jaune)}
+  }
 
   .btn{
     display:inline-flex;align-items:center;gap:10px;cursor:pointer;
@@ -242,12 +262,50 @@
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     font-size:15px;color:var(--grey);
   }
+  /* meme traitement que le menu du header : les libelles portent la majuscule */
+  footer nav a,footer span a{text-transform:capitalize}
   footer a:hover{color:var(--jaune)}
 
   /* ---- apparition au défilement, discrète ---- */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1)}
   .reveal.vu{opacity:1;transform:none}
 
+
+  /* ---------- pastille « Book » : rappel du logo du header, en plus grand.
+     Fixe, a 20px du bord droit et 5% sous le header (92px couvre le header le
+     plus haut, 89px en mobile). Cyan + 20% de magenta (C100 M20), texte dans
+     le bleu sombre de la charte. Le balancement lui donne l'air de flotter.
+     Le survol passe par filter et non par transform : transform appartient a
+     l'animation, qui l'ecraserait. ---------- */
+  .book-flottant{
+    /* a 20% du bord droit, et 10% de la hauteur sous le bas du header
+       (92px couvre le header le plus haut : 83px desktop, 89px mobile). */
+    position:fixed;left:auto;right:20%;top:calc(92px + 10vh);
+    z-index:60;
+    width:88px;height:88px;border-radius:50%;
+    display:grid;place-items:center;text-align:center;
+    background:#00ccff;color:var(--violet-deep);
+    font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;
+    font-size:15px;letter-spacing:.02em;line-height:1.1;
+    box-shadow:0 14px 34px -12px rgba(0,0,0,.75);
+    animation:flotte 5.5s ease-in-out infinite;
+    transition:box-shadow .25s,filter .25s;
+  }
+  @keyframes flotte{
+    0%,100%{transform:translateY(-7px)}
+    50%    {transform:translateY(7px)}
+  }
+  .book-flottant:hover,.book-flottant:focus-visible{
+    filter:brightness(1.08);
+    box-shadow:0 20px 46px -12px rgba(0,0,0,.85);
+  }
+  @media(max-width:860px){
+    .book-flottant{width:72px;height:72px;font-size:13px;left:auto;right:16px}
+    /* la pastille descend jusqu'a 212px environ (position + balancement) :
+       le hero demarre en dessous pour qu'elle flotte sur du vide et ne
+       recouvre jamais la ligne « [ face # X | ... ] ». */
+    .hero{padding-top:140px}
+  }
   @media(max-width:760px){
     body{font-size:17px}
     .brand .name{display:none}
@@ -291,7 +349,14 @@
     <p class="ref">[ face # B | production ]</p>
     <h1>design du travail</h1>
     <p class="promesse">Libérons votre temps des tâches répétitives au profit de tâches productives.</p>
-    <p class="sous">Créons des outils à votre mesure, redessinons votre travail. Des dispositifs conçus selon votre façon de travailler — pas l'inverse. Rien à installer, rien à apprendre par cœur.</p>
+    <p class="sous">Créons des outils à votre mesure, redessinons votre travail. Des dispositifs conçus selon votre façon de travailler — pas l'inverse. Une méthode simple pour un usage intuitif.</p>
+    <ul class="mots">
+      <li><a href="#ia-quotidien">IA au quotidien</a></li>
+      <li><a href="#automatisation">automatisation</a></li>
+      <li><a href="#outils-sur-mesure">outils sur mesure</a></li>
+      <li><a href="#applications">sites web &amp; applications</a></li>
+      <li><a href="#conseil">conseil &amp; formation</a></li>
+    </ul>
     <div class="cta-row">
       <!-- CTA diagnostic : remplacer le mailto par le lien Cal.com dès qu'il est en place -->
       <a class="btn btn--plein" href="mailto:lm@adaloom.studio?subject=Face%20B%20%E2%80%94%20diagnostic%2045%20min">Réserver le diagnostic — Face B <span class="arr">&#8594;</span></a>
@@ -497,5 +562,9 @@
     cibles.forEach(function(el){ obs.observe(el); });
   })();
 </script>
+
+<!-- pastille fixe vers le book de cette face -->
+<a class="book-flottant" href="portfolio.html#book" aria-label="Voir le book design et outils numeriques">Book#B</a>
+
 </body>
 </html>

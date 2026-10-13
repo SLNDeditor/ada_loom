@@ -95,10 +95,11 @@
   .pastille{width:60px;height:auto;flex:0 0 auto;display:block}
   .pastille svg{display:block;width:100%;height:auto}
   .brand .name{font-family:"Deimos","JetBrains Mono",monospace;font-weight:800;font-size:23px;letter-spacing:.02em}
-  .brand .name b{color:var(--magenta)}
+  .brand .name b,
+  .brand .name .uscore{color:var(--magenta)}
   .brand .name small{display:block;font-family:"Deimos","JetBrains Mono",monospace;color:var(--grey);font-weight:800;font-size:17px;letter-spacing:.02em}
   .top nav{display:flex;gap:25px}
-  .top nav a{color:var(--grey);font-size:18px;transition:color .2s}
+  .top nav a{color:var(--grey);font-size:18px;transition:color .2s;text-transform:capitalize}
   .top nav a:hover{color:var(--jaune)}
   .pastille{cursor:pointer}
 
@@ -348,9 +349,15 @@
     document.body.style.overflow='hidden';
   }
 
+  /* venu d'une pastille « Book » ? alors « fermer » doit ramener le visiteur
+     sur la face d'ou il vient, et non le laisser sur une page qu'il n'a pas
+     choisie d'ouvrir. */
+  let retourFace = false;
+
   function closeLB(){
     lb.classList.remove('open');
     document.body.style.overflow='';
+    if(retourFace){ retourFace = false; history.back(); }
   }
 
   document.addEventListener('keydown',e=>{
@@ -361,6 +368,16 @@
   });
 
   lb.addEventListener('click',e=>{ if(e.target===lb) closeLB(); });
+
+  /* arrivee depuis la pastille « Book » d'une page de face : le carrousel
+     s'ouvre directement, sans clic supplementaire */
+  if(location.hash === '#book'){
+    // on n'active le retour que s'il y a bien une page precedente du site :
+    // sur un lien partage ou un acces direct, « fermer » doit juste fermer.
+    retourFace = history.length > 1 && document.referrer.startsWith(location.origin);
+    openLB();
+  }
+
 </script>
 
 </body>
